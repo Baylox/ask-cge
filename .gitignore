@@ -18,3 +18,17 @@
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
+
+###> symfony/ux-turbo ###
+/public/build/
+/public/assets/ux-turbo/
+###< symfony/ux-turbo ###
+
+###> symfony/ux-live-component ###
+/public/assets/ux-live-component/
+###< symfony/ux-live-component ###
+
+##> Tailwind CSS ###s
+node_modules/
+###< Tailwind CSS ###
+
