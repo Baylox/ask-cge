@@ -1,14 +1,16 @@
 // Assets/app.js
-import { Application } from '@hotwired/stimulus'
-import { definitionsFromContext } from 'stimulus-vite-helpers'
-import Turbo from '@hotwired/turbo'
+import '@hotwired/turbo';
+import { Application } from '@hotwired/stimulus';
+import { registerControllers } from 'stimulus-vite-helpers';
+import './styles/app.css';
+
 
 // Enable Turbo (replaces traditional redirects)
 Turbo.start()
 
 // Stimulus
-const application = Application.start()
-const context = require.context('./controllers', true, /\.js$/)
-application.load(definitionsFromContext(context))
+const app = Application.start();
+registerControllers(app, import.meta.glob('./controllers/**/*_controller.js'));
 
-import './app.css'; 
+
+// Additional JavaScript files 
