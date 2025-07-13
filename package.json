@@ -6,9 +6,22 @@
     "@symfony/ux-turbo": "file:vendor/symfony/ux-turbo/assets",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.11"
+    "tailwindcss": "^4.1.11",
+    "vite": "^6.3.5",
+    "vite-plugin-symfony": "^8.2.0"
   },
-  "dependencies": {
-    "@tailwindcss/vite": "^4.1.11"
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "vite": {
+    "build": {
+      "outDir": "public/build",
+      "assetsDir": "assets"
+    },
+    "server": {
+      "port": 3000,
+      "open": true
+    }
   }
 }
