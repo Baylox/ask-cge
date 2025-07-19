@@ -1,21 +1,17 @@
-import { defineConfig } from "vite";
-import symfonyPlugin from "vite-plugin-symfony";
-import tailwindcss from '@tailwindcss/vite';
-
-/* if you're using React */
-// import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
+import symfonyPlugin from 'vite-plugin-symfony';
 
 export default defineConfig({
-    plugins: [
-        /* react(), // if you're using React */
-        symfonyPlugin(),
-        tailwindcss(),
-    ],
-    build: {
-        rollupOptions: {
-            input: {
-                app: "./assets/app.js"
-            },
-        }
+  plugins: [symfonyPlugin()],
+  build: {
+    rollupOptions: {
+      input: {
+        app: './assets/app.js' // Main entry point for the application
+      }
     },
+    outDir: 'public/build',
+    emptyOutDir: true,
+  },
 });
+
+
