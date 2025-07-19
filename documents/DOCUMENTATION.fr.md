@@ -16,6 +16,10 @@
 - [Symfony + Vite (Pentatrion)](https://symfony-vite.pentatrion.com/)
 - [Configuration avancée Vite](https://vitejs.dev/config/)
 
+### Tailwindcss
+
+- [Utiliser Tailwind avec PostCSS](https://tailwindcss.com/docs/using-with-preprocessors#using-postcss-as-your-preprocessor)
+
 ## Autres outils
 
 - [Stimulus (Hotwired)](https://stimulus.hotwired.dev/)
