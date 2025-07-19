@@ -25,6 +25,7 @@
     }
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.1.11",
     "stimulus-vite-helpers": "^3.1.0"
   }
 }
