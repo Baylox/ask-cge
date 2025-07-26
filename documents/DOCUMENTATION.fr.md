@@ -19,6 +19,7 @@
 ### Tailwindcss
 
 - [Utiliser Tailwind avec PostCSS](https://tailwindcss.com/docs/using-with-preprocessors#using-postcss-as-your-preprocessor)
+- [DaisyUI](https://daisyui.com/docs/intro)
 
 ## Autres outils
 
