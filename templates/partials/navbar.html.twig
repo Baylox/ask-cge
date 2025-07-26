@@ -1,0 +1,42 @@
+<div
+	class="navbar bg-base-100 shadow-md px-4 py-2">
+	<!-- Left: Burger menu -->
+	<div class="navbar-start">
+		<div class="dropdown">
+			<button tabindex="0" class="btn btn-ghost btn-circle">
+				<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+				</svg>
+			</button>
+			<ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow-lg bg-base-100 rounded-box w-52">
+				<li>
+					<a href="#" class="hover:text-primary">Home</a>
+				</li>
+				<li>
+					<a href="#" class="hover:text-primary">Services</a>
+				</li>
+				<li>
+					<a href="#" class="hover:text-primary">Contact</a>
+				</li>
+				<li>
+					<a href="#" class="hover:text-primary">Admin</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- Center: Brand -->
+	<div class="navbar-center">
+        <a href="#" class="text-2xl font-bold">
+            CGAgency
+        </a>
+	</div>
+
+	<!-- Right: Theme toggle -->
+	<div class="navbar-end">
+		<label class="cursor-pointer label gap-2 text-base-content">
+			<span class="text-sm">Dark mode</span>
+			<input type="checkbox" value="dark" class="toggle theme-controller"/>
+		</label>
+	</div>
+</div>

@@ -1,0 +1,33 @@
+{
+  "devDependencies": {
+    "@hotwired/stimulus": "^3.0.0",
+    "@hotwired/turbo": "^7.1.1 || ^8.0",
+    "@symfony/stimulus-bridge": "^3.2.0 || ^4.0.0",
+    "@symfony/ux-turbo": "file:vendor/symfony/ux-turbo/assets",
+    "@tailwindcss/postcss": "^4.1.11",
+    "autoprefixer": "^10.4.21",
+    "daisyui": "^5.0.47",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.11",
+    "vite": "^6.3.5",
+    "vite-plugin-symfony": "^8.2.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "vite": {
+    "build": {
+      "outDir": "public/build",
+      "assetsDir": "assets"
+    },
+    "server": {
+      "port": 3000,
+      "open": true
+    }
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.11",
+    "stimulus-vite-helpers": "^3.1.0"
+  }
+}
