@@ -28,6 +28,9 @@ class Card
     #[ORM\Column(length: 24)]
     private ?string $status = null;
 
+    #[ORM\ManyToOne(inversedBy: 'cards')]
+    private ?Lane $lane = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -77,6 +80,18 @@ class Card
     public function setStatus(string $status): static
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getLane(): ?Lane
+    {
+        return $this->lane;
+    }
+
+    public function setLane(?Lane $lane): static
+    {
+        $this->lane = $lane;
 
         return $this;
     }
