@@ -18,19 +18,16 @@ This roadmap outlines a progressive development plan for a Trello-like task mana
 
 ### Phase 1 – Data Modeling
 
-- Create the `Project` entity with a title field
-- Create the `Column` entity with:
-  - Title
-  - Position (for ordering)
-  - Many-to-one relation to `Project`
-- Create the `Card` entity with:
-  - Title
-  - Description
-  - isDone (boolean)
-  - Position
-  - Many-to-one relation to `Column`
-- Run database migrations
-- Create fixtures for test data
+- **Define main entities:**
+  - **Account**: `username`, `email`, `password` (authentication)
+  - **Project**: `title`, **ManyToMany** relation to Account (collaborators)
+  - **Board**: `title`, **ManyToOne** relation to Project, **ManyToMany** relation to Account
+  - **Column**: `title`, `position`, **ManyToOne** relation to Board
+  - **Card**: `title`, `description`, `isDone`, `position`, **ManyToOne** relation to Column
+
+- **Technical steps:**
+  - Generate and run migrations
+  - Create test fixtures
 
 ---
 

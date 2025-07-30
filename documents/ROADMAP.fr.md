@@ -15,34 +15,32 @@ Cette roadmap décrit un plan de développement progressif pour une application 
 - Créer un layout de base (`base.html.twig`)
 
 ---
-
 ### Phase 1 – Modélisation des données
 
-- Créer l’entité `Project` (titre)
-- Créer l’entité `Column` :
-  - Titre
-  - Position (pour le tri)
-  - Relation many-to-one vers `Project`
-- Créer l’entité `Card` :
-  - Titre
-  - Description
-  - isDone (booléen)
-  - Position
-  - Relation many-to-one vers `Column`
-- Générer et exécuter les migrations
-- Créer des fixtures de test
+- **Définir les entités principales :**
+  - **Account** : `username`, `email`, `password` (authentification)
+  - **Project** : `title`, relation **ManyToMany** vers Account (collaborateurs)
+  - **Board** : `title`, relation **ManyToOne** vers Project, relation **ManyToMany** vers Account
+  - **Column** : `title`, `position`, relation **ManyToOne** vers Board
+  - **Card** : `title`, `description`, `isDone`, `position`, relation **ManyToOne** vers Column
+
+- **Étapes techniques :**
+  - Générer et exécuter les migrations
+  - Créer des fixtures de test
 
 ---
 
 ### Phase 2 – Rendu statique de l’interface
 
-- Afficher la page d’un projet avec :
+- **Afficher la page d’un projet avec :**
   - Toutes ses colonnes
   - Toutes les cartes par colonne
-- Utiliser des composants Twig pour :
+
+- **Utiliser des composants Twig pour :**
   - Le rendu des colonnes
   - Le rendu des cartes
-- Appliquer un style de base avec SCSS ou TailwindCSS
+
+- **Appliquer un style de base** avec SCSS ou TailwindCSS
 
 ---
 
