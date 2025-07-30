@@ -26,9 +26,16 @@ class Board
     #[ORM\ManyToMany(targetEntity: Account::class, mappedBy: 'boards')]
     private Collection $accounts;
 
+    /**
+     * @var Collection<int, lane>
+     */
+    #[ORM\OneToMany(targetEntity: lane::class, mappedBy: 'board')]
+    private Collection $lanes;
+
     public function __construct()
     {
         $this->accounts = new ArrayCollection();
+        $this->lanes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -70,6 +77,36 @@ class Board
     {
         if ($this->accounts->removeElement($account)) {
             $account->removeBoard($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, lane>
+     */
+    public function getLanes(): Collection
+    {
+        return $this->lanes;
+    }
+
+    public function addLane(lane $lane): static
+    {
+        if (!$this->lanes->contains($lane)) {
+            $this->lanes->add($lane);
+            $lane->setBoard($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLane(lane $lane): static
+    {
+        if ($this->lanes->removeElement($lane)) {
+            // set the owning side to null (unless already changed)
+            if ($lane->getBoard() === $this) {
+                $lane->setBoard(null);
+            }
         }
 
         return $this;

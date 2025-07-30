@@ -22,6 +22,9 @@ class Lane
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $sortOrder = null;
 
+    #[ORM\ManyToOne(inversedBy: 'lanes')]
+    private ?Board $board = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -47,6 +50,18 @@ class Lane
     public function setSortOrder(int $sortOrder): static
     {
         $this->sortOrder = $sortOrder;
+
+        return $this;
+    }
+
+    public function getBoard(): ?Board
+    {
+        return $this->board;
+    }
+
+    public function setBoard(?Board $board): static
+    {
+        $this->board = $board;
 
         return $this;
     }
