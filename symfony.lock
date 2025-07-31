@@ -336,5 +336,18 @@
     },
     "twig/extra-bundle": {
         "version": "v3.21.0"
+    },
+    "zenstruck/foundry": {
+        "version": "2.6",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "2.6",
+            "ref": "50321333fa5e12324ac1d5a2aeb65fb276a6f9c8"
+        },
+        "files": [
+            "./config/packages/zenstruck_foundry.yaml",
+            "./src/Story/AppStory.php"
+        ]
     }
 }
