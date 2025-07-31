@@ -26,4 +26,8 @@
 - [Stimulus (Hotwired)](https://stimulus.hotwired.dev/)
 - [Turbo Drive](https://turbo.hotwired.dev/)
 
+# Fixtures et Tests
+
+- [Faker](https://faker.readthedocs.io/en/master/)
+
 ---
