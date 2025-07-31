@@ -26,7 +26,7 @@
 - [Stimulus (Hotwired)](https://stimulus.hotwired.dev/)
 - [Turbo Drive](https://turbo.hotwired.dev/)
 
-# Fixtures et Tests
+## Fixtures et Tests
 
 - [Faker](https://faker.readthedocs.io/en/master/)
 - [Zenstruck Foundry](https://symfony.com/doc/current/ZenstruckFoundryBundle/index.html)
