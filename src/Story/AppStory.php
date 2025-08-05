@@ -12,5 +12,6 @@ final class AppStory extends Story
     public function build(): void
     {
         UserStory::load();
+        BoardStory::load();
     }
 }

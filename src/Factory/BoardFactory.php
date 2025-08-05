@@ -4,6 +4,7 @@ namespace App\Factory;
 
 use App\Entity\Board;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
+use App\Factory\AccountFactory;
 
 /**
  * @extends PersistentProxyObjectFactory<Board>
@@ -15,9 +16,7 @@ final class BoardFactory extends PersistentProxyObjectFactory
      *
      * @todo inject services if required
      */
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     public static function class(): string
     {
@@ -32,17 +31,33 @@ final class BoardFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'title' => self::faker()->text(50),
+            'title' => self::faker()->words(3, true),
         ];
     }
 
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#initialization
      */
-    protected function initialize(): static
+    public function initialize(): static
     {
-        return $this
-            // ->afterInstantiate(function(Board $board): void {})
-        ;
+        return $this->afterInstantiate(function (Board $board): void {
+            // Creates 2 new accounts for each board
+            $accounts = AccountFactory::new()->many(2)->create();
+
+            foreach ($accounts as $account) {
+                $board->addAccount($account->_real());
+            }
+        });
+    }
+
+    public function withAccounts(int $count = 2): self
+    {
+        return $this->afterInstantiate(function (Board $board) use ($count): void {
+            $accounts = AccountFactory::createMany($count);
+
+            foreach ($accounts as $account) {
+                $board->addAccount($account->_real());
+            }
+        });
     }
 }
