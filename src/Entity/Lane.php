@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\UX\Turbo\Attribute\Broadcast;
 
 #[ORM\Entity(repositoryClass: LaneRepository::class)]
-#[Broadcast]
+// #[Broadcast]
 class Lane
 {
     #[ORM\Id]

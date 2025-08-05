@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\UX\Turbo\Attribute\Broadcast;
 
 #[ORM\Entity(repositoryClass: AccountRepository::class)]
-#[Broadcast]
+// #[Broadcast]
 class Account
 {
     #[ORM\Id]
