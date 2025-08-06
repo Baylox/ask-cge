@@ -29,7 +29,7 @@ class Board
     /**
      * @var Collection<int, lane>
      */
-    #[ORM\OneToMany(targetEntity: lane::class, mappedBy: 'board', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: lane::class, mappedBy: 'board', orphanRemoval: true, cascade: ['persist'])]
     private Collection $lanes;
 
     public function __construct()
