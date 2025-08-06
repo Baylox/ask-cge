@@ -24,6 +24,7 @@ class Lane
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $sortOrder = null;
 
+    #[ORM\OrderBy(['sortOrder' => 'ASC'])] // Ensures lanes are sorted by sortOrder
     #[ORM\ManyToOne(inversedBy: 'lanes')]
     private ?Board $board = null;
 
@@ -75,6 +76,18 @@ class Lane
     public function setBoard(?Board $board): static
     {
         $this->board = $board;
+
+        return $this;
+    }
+
+    /**
+     * 
+     * Method to associate a lane to a board with automatic sortOrder
+     */
+    public function setBoardWithSortOrder(Board $board): static
+    {
+        $this->setBoard($board);
+        $this->setSortOrder($board->getLanes()->count() + 1);
 
         return $this;
     }
