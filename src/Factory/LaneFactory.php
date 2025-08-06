@@ -23,7 +23,7 @@ final class LaneFactory extends PersistentProxyObjectFactory
     {
         return Lane::class;
     }
-
+    
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories
      *
@@ -32,7 +32,7 @@ final class LaneFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'sortOrder' => self::faker()->numberBetween(1, 32767),
+            'sortOrder' => self::faker()->unique()->numberBetween(1, 32767),
             'title' => self::faker()->text(50),
         ];
     }
