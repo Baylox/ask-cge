@@ -1,0 +1,18 @@
+# Navbar
+menu:
+  home: "Home"
+  services: "Services"
+  contact: "Contact"
+  admin: "Admin"
+
+# Homepage
+homepage:
+  hero_title: "The ultra-fast visual manager"
+  hero_subtitle: "Organize your tasks, manage your projects, collaborate as a team. Free, fast, and hassle-free."
+  cta: "Try now"
+
+# Footer
+footer:
+  copyright: "All rights reserved."
+  legal: "Legal notice"
+  privacy: "Privacy policy"
