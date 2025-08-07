@@ -15,6 +15,17 @@ class BoardRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Board::class);
     }
+    /**
+     * @return Board[]
+     */
+    public function findAllBoardsAssiociated(): array
+    {
+        return $this->createQueryBuilder('b')
+            ->leftJoin('b.lanes', 'l')
+            ->addSelect('l')
+            ->getQuery()
+            ->getResult();
+    }
 
     //    /**
     //     * @return Board[] Returns an array of Board objects

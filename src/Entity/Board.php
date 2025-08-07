@@ -27,9 +27,9 @@ class Board
     private Collection $accounts;
 
     /**
-     * @var Collection<int, lane>
+     * @var Collection<int, Lane>
      */
-    #[ORM\OneToMany(targetEntity: lane::class, mappedBy: 'board', orphanRemoval: true, cascade: ['persist'])]
+    #[ORM\OneToMany(targetEntity: Lane::class, mappedBy: 'board', orphanRemoval: true, cascade: ['persist'])]
     private Collection $lanes;
 
     public function __construct()
@@ -83,14 +83,14 @@ class Board
     }
 
     /**
-     * @return Collection<int, lane>
+     * @return Collection<int, Lane>
      */
     public function getLanes(): Collection
     {
         return $this->lanes;
     }
 
-    public function addLane(lane $lane): static
+    public function addLane(Lane $lane): static
     {
         if (!$this->lanes->contains($lane)) {
             $this->lanes->add($lane);
@@ -100,7 +100,7 @@ class Board
         return $this;
     }
 
-    public function removeLane(lane $lane): static
+    public function removeLane(Lane $lane): static
     {
         if ($this->lanes->removeElement($lane)) {
             // set the owning side to null (unless already changed)
