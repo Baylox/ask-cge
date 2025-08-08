@@ -3,8 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Account;
-use App\Entity\board;
-use App\Entity\role;
+use App\Entity\Board;
+use App\Entity\Role;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,11 +18,11 @@ class AccountType extends AbstractType
             ->add('email')
             ->add('password')
             ->add('role', EntityType::class, [
-                'class' => role::class,
+                'class' => Role::class,
                 'choice_label' => 'id',
             ])
             ->add('boards', EntityType::class, [
-                'class' => board::class,
+                'class' => Board::class,
                 'choice_label' => 'id',
                 'multiple' => true,
             ])

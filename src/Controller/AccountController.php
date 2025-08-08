@@ -10,6 +10,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+
 
 #[Route('/account')]
 final class AccountController extends AbstractController
@@ -23,13 +26,25 @@ final class AccountController extends AbstractController
     }
 
     #[Route('/new', name: 'app_account_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        UserPasswordHasherInterface $passwordHasher,
+    ): Response
     {
         $account = new Account();
-        $form = $this->createForm(AccountType::class, $account);
+        // rendre le mot de passe obligatoire
+        $form = $this->createForm(AccountType::class, $account, ['password_required' => true]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Hasher le mot de passe
+            $hashedPassword = $passwordHasher->hashPassword(
+                $account,
+                $form->get('password')->getData()
+            );
+            $account->setPassword($hashedPassword);
+    
             $entityManager->persist($account);
             $entityManager->flush();
 
@@ -51,14 +66,27 @@ final class AccountController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_account_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Account $account, EntityManagerInterface $entityManager): Response
+    public function edit(
+        Request $request,
+        Account $account,
+        EntityManagerInterface $entityManager,
+        UserPasswordHasherInterface $passwordHasher,
+    ): Response
     {
         $form = $this->createForm(AccountType::class, $account);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            // Hasher le mot de passe quand il a été saisi
+            if ($form->get('password')->getData()) {
+                $hashedPassword = $passwordHasher->hashPassword(
+                    $account,
+                    $form->get('password')->getData()
+                );
+                $account->setPassword($hashedPassword);
+            }
 
+            $entityManager->flush();
             return $this->redirectToRoute('app_account_index', [], Response::HTTP_SEE_OTHER);
         }
 
