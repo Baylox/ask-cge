@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Account{% endblock %}
+
+{% block body %}
+    <h1>Account</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ account.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ account.email }}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{ account.password }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_account_index') }}">back to list</a>
+
+    <a href="{{ path('app_account_edit', {'id': account.id}) }}">edit</a>
+
+    {{ include('account/_delete_form.html.twig') }}
+{% endblock %}

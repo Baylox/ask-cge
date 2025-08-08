@@ -13,10 +13,17 @@ final class UserStory extends Story
     {
         // Create 'ROLE_USER' role
         RoleFactory::createOne(['label' => 'ROLE_USER']);
+        RoleFactory::createOne(['label' => 'ROLE_ADMIN']);
         
         // Create accounts, each associated with the 'ROLE_USER' role
-        AccountFactory::createMany(5, fn() => [
+        AccountFactory::createMany(20, fn() => [
             'role' => RoleFactory::findOrCreate(['label' => 'ROLE_USER']),
         ]);
+
+        // Create an admin account
+        AccountFactory::createOne([
+            'email' => 'admin@example.com',
+            'role' => RoleFactory::findOrCreate(['label' => 'ROLE_ADMIN']),
+        ]); 
     }
 }
