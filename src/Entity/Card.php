@@ -8,6 +8,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\UX\Turbo\Attribute\Broadcast;
 
 #[ORM\Entity(repositoryClass: CardRepository::class)]
+#[ORM\Table(
+    name: 'card',
+    uniqueConstraints: [new ORM\UniqueConstraint(
+        name: 'uniq_card_lane_position',
+        columns: ['lane_id', 'position']
+    )]
+)]
 // #[Broadcast]
 class Card
 {
@@ -22,13 +29,14 @@ class Card
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::SMALLINT)]
-    private ?int $sortOrder = null;
-
     #[ORM\Column(length: 24)]
     private ?string $status = null;
 
+    #[ORM\Column(type: Types::SMALLINT)]
+    private ?int $position = null;
+
     #[ORM\ManyToOne(inversedBy: 'cards')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?Lane $lane = null;
 
     public function getId(): ?int
@@ -60,18 +68,6 @@ class Card
         return $this;
     }
 
-    public function getSortOrder(): ?int
-    {
-        return $this->sortOrder;
-    }
-
-    public function setSortOrder(int $sortOrder): static
-    {
-        $this->sortOrder = $sortOrder;
-
-        return $this;
-    }
-
     public function getStatus(): ?string
     {
         return $this->status;
@@ -92,6 +88,26 @@ class Card
     public function setLane(?Lane $lane): static
     {
         $this->lane = $lane;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of position
+     */ 
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    /**
+     * Set the value of position
+     *
+     * @return  self
+     */ 
+    public function setPosition($position)
+    {
+        $this->position = $position;
 
         return $this;
     }
