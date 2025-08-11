@@ -29,7 +29,8 @@ class Board
     /**
      * @var Collection<int, lane>
      */
-    #[ORM\OneToMany(targetEntity: lane::class, mappedBy: 'board', orphanRemoval: true, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'board', targetEntity: Lane::class, orphanRemoval: true, cascade: ['persist'])]
+    #[ORM\OrderBy(['position' => 'ASC'])]
     private Collection $lanes;
 
     public function __construct()
