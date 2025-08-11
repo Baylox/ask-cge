@@ -10,6 +10,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\UX\Turbo\Attribute\Broadcast;
 
 #[ORM\Entity(repositoryClass: LaneRepository::class)]
+#[ORM\Table(
+    name: 'lane',
+    uniqueConstraints: [new ORM\UniqueConstraint(
+        name: 'uniq_lane_board_position',
+        columns: ['board_id', 'position']
+    )],
+    indexes: [new ORM\Index(columns: ['board_id', 'position'])]
+)]
 // #[Broadcast]
 class Lane
 {
@@ -20,13 +28,13 @@ class Lane
 
     #[ORM\Column(length: 50)]
     private ?string $title = null;
-
-    #[ORM\Column(type: Types::SMALLINT)]
-    private ?int $sortOrder = null;
-
-    #[ORM\OrderBy(['sortOrder' => 'ASC'])] // Ensures lanes are sorted by sortOrder
+    
     #[ORM\ManyToOne(inversedBy: 'lanes')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?Board $board = null;
+
+    #[ORM\Column(type: Types::INTEGER)]
+    private ?int $position = null;
 
     /**
      * @var Collection<int, Card>
@@ -55,19 +63,6 @@ class Lane
 
         return $this;
     }
-
-    public function getSortOrder(): ?int
-    {
-        return $this->sortOrder;
-    }
-
-    public function setSortOrder(int $sortOrder): static
-    {
-        $this->sortOrder = $sortOrder;
-
-        return $this;
-    }
-
     public function getBoard(): ?Board
     {
         return $this->board;
@@ -76,18 +71,6 @@ class Lane
     public function setBoard(?Board $board): static
     {
         $this->board = $board;
-
-        return $this;
-    }
-
-    /**
-     * 
-     * Method to associate a lane to a board with automatic sortOrder
-     */
-    public function setBoardWithSortOrder(Board $board): static
-    {
-        $this->setBoard($board);
-        $this->setSortOrder($board->getLanes()->count() + 1);
 
         return $this;
     }
@@ -118,6 +101,17 @@ class Lane
                 $card->setLane(null);
             }
         }
+
+        return $this;
+    }
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    public function setPosition($position)
+    {
+        $this->position = $position;
 
         return $this;
     }
