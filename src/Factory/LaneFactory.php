@@ -15,15 +15,13 @@ final class LaneFactory extends PersistentProxyObjectFactory
      *
      * @todo inject services if required
      */
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     public static function class(): string
     {
         return Lane::class;
     }
-    
+
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories
      *
@@ -32,8 +30,8 @@ final class LaneFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'sortOrder' => self::faker()->unique()->numberBetween(1, 32767),
             'title' => self::faker()->text(50),
+            'position' => null,
         ];
     }
 
@@ -42,8 +40,19 @@ final class LaneFactory extends PersistentProxyObjectFactory
      */
     protected function initialize(): static
     {
-        return $this
-            // ->afterInstantiate(function(Lane $lane): void {})
-        ;
+        return $this->afterInstantiate(function (Lane $lane): void {
+            // Respect a provided position
+            if ($lane->getPosition() !== null) {
+                return;
+            }
+
+            $board = $lane->getBoard();
+            if (!$board) {
+                throw new \LogicException('Always pass the board: LaneFactory::createOne(["board" => $board])');
+            }
+
+            // Dense (simple for fixtures):
+            $lane->setPosition($board->getLanes()->count() + 1);
+        });
     }
 }

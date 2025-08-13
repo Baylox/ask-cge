@@ -15,9 +15,7 @@ final class CardFactory extends PersistentProxyObjectFactory
      *
      * @todo inject services if required
      */
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     public static function class(): string
     {
@@ -32,9 +30,9 @@ final class CardFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'sortOrder' => self::faker()->numberBetween(1, 32767),
             'status' => self::faker()->text(24),
             'title' => self::faker()->text(50),
+            'position' => null,
         ];
     }
 
@@ -43,8 +41,15 @@ final class CardFactory extends PersistentProxyObjectFactory
      */
     protected function initialize(): static
     {
-        return $this
-            // ->afterInstantiate(function(Card $card): void {})
-        ;
+        return $this->afterInstantiate(function (Card $card): void {
+            if ($card->getPosition() !== null) return;
+            $lane = $card->getLane();
+            if (!$lane) {
+                throw new \LogicException('Always pass the lane: CardFactory::createOne(["lane"=>$lane])');
+            }
+
+            // Dense (simple for fixtures):
+            $card->setPosition($lane->getCards()->count() + 1);
+        });
     }
 }
