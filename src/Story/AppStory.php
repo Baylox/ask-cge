@@ -2,6 +2,7 @@
 
 namespace App\Story;
 
+use App\Entity\Board;
 use Zenstruck\Foundry\Attribute\AsFixture;
 use Zenstruck\Foundry\Story;
 use App\Story\UserStory;
@@ -13,5 +14,6 @@ final class AppStory extends Story
     {
         UserStory::load();
         BoardStory::load();
+        BoardLanesStory::load();
     }
 }
