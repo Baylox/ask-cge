@@ -15,5 +15,6 @@ final class AppStory extends Story
         UserStory::load();
         BoardStory::load();
         BoardLanesStory::load();
+        BoardsLanesCardsStory::load();
     }
 }
