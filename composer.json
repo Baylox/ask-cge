@@ -40,6 +40,7 @@
         "symfony/translation": "7.3.*",
         "symfony/twig-bundle": "7.3.*",
         "symfony/ux-turbo": "^2.27",
+        "symfony/ux-twig-component": "^2.29",
         "symfony/validator": "7.3.*",
         "symfony/web-link": "7.3.*",
         "symfony/yaml": "7.3.*",
