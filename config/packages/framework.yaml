@@ -4,9 +4,12 @@ framework:
 
     # Note that the session will be started ONLY if you read or write from it.
     session: true
-
+    assets:
+        # so that {{ asset() }} resolves files versioned by Vite (manifest)
+        version_strategy: 'Pentatrion\ViteBundle\Asset\ViteAssetVersionStrategy'
     #esi: true
     #fragments: true
+
 
 when@test:
     framework:
