@@ -4,6 +4,10 @@
 
 {% block body %}
 
-{% include 'partials/hero.html.twig' %}
+{{ component('Hero', {
+  title: 'Mon board',
+  subtitle: 'Vue d’ensemble',
+  class: 'bg-gradient-to-b from-black/40 to-black/60'
+}) }}
 
 {% endblock %}

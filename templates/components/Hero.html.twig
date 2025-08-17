@@ -1,3 +1,16 @@
-<div{{ attributes }}>
-    <!-- component HTML -->
-</div>
+<section {{ attributes.defaults({ class: 'relative min-h-[80vh] grid place-items-center text-white text-center', role: 'banner', 'aria-labelledby': 'hero-title', } ) }}>
+	<picture class="absolute inset-0 -z-10">
+		<img src="{{ asset(bg) }}" sizes="100vw" alt="" fetchpriority="high" loading="eager" decoding="async" class="w-full h-full object-cover object-center">
+	</picture>
+	<div class="absolute inset-0 -z-10 bg-black/60"></div>
+
+	<div class="px-4 max-w-xl">
+		<h1 id="hero-title" class="text-4xl md:text-5xl font-extrabold mb-4">{{ title }}</h1>
+		{% if subtitle %}
+			<p class="text-base md:text-lg mb-6 opacity-95">{{ subtitle }}</p>
+		{% endif %}
+		{% if ctaHref and ctaLabel %}
+			<a href="{{ ctaHref }}" class="btn btn-primary btn-wide">{{ ctaLabel }}</a>
+		{% endif %}
+	</div>
+</section>

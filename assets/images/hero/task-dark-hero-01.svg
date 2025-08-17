@@ -1,0 +1,58 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b0b0f"></stop>
+      <stop offset="100%" stop-color="#111827"></stop>
+    </linearGradient>
+    <radialGradient id="glow" cx="70%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="#6ee7b7" stop-opacity="0.14"></stop>
+      <stop offset="100%" stop-color="#6ee7b7" stop-opacity="0"></stop>
+    </radialGradient>
+  </defs>
+
+  <!-- Fond -->
+  <rect width="1600" height="900" fill="url(#bg)"></rect>
+  <rect width="1600" height="900" fill="url(#glow)"></rect>
+
+  <!-- Lignes décoratives (subtiles) -->
+  <g stroke="#fff" stroke-opacity="0.04">
+    <line x1="0" y1="140" x2="1600" y2="140"></line>
+    <line x1="0" y1="320" x2="1600" y2="320"></line>
+    <line x1="0" y1="500" x2="1600" y2="500"></line>
+    <line x1="0" y1="680" x2="1600" y2="680"></line>
+  </g>
+
+  <!-- Silhouettes de “lanes” & “cards” façon kanban -->
+  <g fill="#fff" fill-opacity="0.06">
+    <!-- Lane 1 -->
+    <rect x="140" y="160" rx="18" ry="18" width="320" height="560"></rect>
+    <rect x="160" y="190" rx="12" ry="12" width="280" height="90" fill-opacity="0.10"></rect>
+    <rect x="160" y="295" rx="12" ry="12" width="280" height="70"></rect>
+    <rect x="160" y="380" rx="12" ry="12" width="280" height="110" fill-opacity="0.10"></rect>
+    <rect x="160" y="505" rx="12" ry="12" width="280" height="80"></rect>
+    <rect x="160" y="595" rx="12" ry="12" width="280" height="90" fill-opacity="0.10"></rect>
+
+    <!-- Lane 2 -->
+    <rect x="640" y="160" rx="18" ry="18" width="320" height="560"></rect>
+    <rect x="660" y="190" rx="12" ry="12" width="280" height="110"></rect>
+    <rect x="660" y="315" rx="12" ry="12" width="280" height="80" fill-opacity="0.10"></rect>
+    <rect x="660" y="410" rx="12" ry="12" width="280" height="95"></rect>
+    <rect x="660" y="515" rx="12" ry="12" width="280" height="75" fill-opacity="0.10"></rect>
+    <rect x="660" y="600" rx="12" ry="12" width="280" height="95"></rect>
+
+    <!-- Lane 3 -->
+    <rect x="1140" y="160" rx="18" ry="18" width="320" height="560"></rect>
+    <rect x="1160" y="190" rx="12" ry="12" width="280" height="85" fill-opacity="0.10"></rect>
+    <rect x="1160" y="285" rx="12" ry="12" width="280" height="120"></rect>
+    <rect x="1160" y="415" rx="12" ry="12" width="280" height="80" fill-opacity="0.10"></rect>
+    <rect x="1160" y="505" rx="12" ry="12" width="280" height="95"></rect>
+    <rect x="1160" y="610" rx="12" ry="12" width="280" height="90" fill-opacity="0.10"></rect>
+  </g>
+
+  <!-- Légers reflets/bokeh -->
+  <g>
+    <circle cx="250" cy="160" r="90" fill="#60a5fa" fill-opacity=".06"></circle>
+    <circle cx="1340" cy="250" r="70" fill="#a78bfa" fill-opacity=".06"></circle>
+    <circle cx="900" cy="760" r="100" fill="#34d399" fill-opacity=".05"></circle>
+  </g>
+</svg>
