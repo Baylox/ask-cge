@@ -10,6 +10,7 @@
 
 - [Twig - Filtres](https://twig.symfony.com/doc/3.x/filters/index.html)
 - [Twig - Fonctions](https://twig.symfony.com/doc/3.x/functions/index.html)
+- [Twig - Composants](https://symfony.com/bundles/ux-twig-component/current/index.html)
 
 ## Vite
 
