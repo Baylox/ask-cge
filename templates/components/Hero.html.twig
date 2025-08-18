@@ -1,4 +1,3 @@
-{# templates/components/Hero.html.twig #}
 <section
   {{ attributes.defaults({
     class: 'relative grid ' ~ this.heightClass() ~ ' place-items-center text-center text-white',
@@ -16,10 +15,11 @@
     >
   </picture>
 
-  <div class="absolute inset-0 bg-gradient-to-b from-black/30 to-black/70"></div>
+  {# Behind the content #}
+  <div class="absolute inset-0 -z-10 pointer-events-none bg-gradient-to-b from-black/20 to-black/60"></div>
 
-
-  <div class="px-4 max-w-xl">
+  {# Content above #}
+  <div class="relative z-10 px-4 max-w-xl">
     <h1 id="hero-title" class="text-3xl md:text-4xl font-extrabold mb-3">
       {{ title }}
     </h1>
@@ -35,3 +35,4 @@
     {% endif %}
   </div>
 </section>
+
