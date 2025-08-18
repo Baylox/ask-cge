@@ -12,7 +12,7 @@ final class Hero
     public string $bg = 'assets/images/hero/task-dark-hero-01.svg';
     public ?string $ctaHref = null;
     public ?string $ctaLabel = null;
-    public string  $size   = 'sm';
+    public string $size = 'sm';
 
     public function heightClass(): string
     {
