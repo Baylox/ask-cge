@@ -1,26 +1,41 @@
-// Listen for the Turbo load event to initialize theme settings
+// Init with Turbo (SPA-friendly)
 document.addEventListener('turbo:load', () => {
     const html = document.documentElement;
-    // Retrieve the saved theme from localStorage, default to 'dark' if not set
-    const savedTheme = localStorage.getItem('theme');
-    const theme = savedTheme ?? 'dark'; 
-    html.setAttribute('data-theme', theme);
+    const KEY = 'theme';
 
-    /**
-     * Represents the theme toggle button element in the DOM.
-     * Used to switch between light and dark themes.
-     * @type {HTMLElement|null}
-     */
-    const toggle = document.querySelector('.theme-toggle');
-    if (toggle) {
-        // Set the toggle state based on the current theme
-        toggle.checked = theme === 'light'; 
+    // Initial choice: storage > OS
+    const stored = localStorage.getItem(KEY);
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = stored ?? (prefersDark ? 'dark' : 'light');
+    applyTheme(initial);
 
-        // Listen for changes on the toggle to switch themes
-        toggle.addEventListener('change', () => {
-            const newTheme = toggle.checked ? 'light' : 'dark'; 
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
+    // All toggles (checkbox OR button)
+    const toggles = document.querySelectorAll('.theme-toggle');
+    syncToggles(initial);
+
+    toggles.forEach(el => {
+        const evt = el instanceof HTMLInputElement ? 'change' : 'click';
+        el.addEventListener(evt, () => {
+            const next = currentTheme() === 'dark' ? 'light' : 'dark';
+            applyTheme(next);
+            syncToggles(next);
+            localStorage.setItem(KEY, next);
+            document.dispatchEvent(new CustomEvent('theme:change', { detail: { theme: next } }));
+        });
+    });
+
+    // Helpers
+    function applyTheme(theme) {
+        html.setAttribute('data-theme', theme);          // DaisyUI
+        html.classList.toggle('dark', theme === 'dark'); // Tailwind dark:
+    }
+    function currentTheme() {
+        return html.getAttribute('data-theme') || 'light';
+    }
+    function syncToggles(theme) {
+        toggles.forEach(el => {
+            if (el instanceof HTMLInputElement) el.checked = (theme === 'light'); // chosen direction
+            el.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
         });
     }
 });
