@@ -13,9 +13,10 @@ final class UserStory extends Story
         // Retrieve (or create if missing) roles only once
         $userRole  = RoleFactory::findOrCreate(['label' => 'ROLE_USER']);
         $adminRole = RoleFactory::findOrCreate(['label' => 'ROLE_ADMIN']);
+        $superAdminRole = RoleFactory::findOrCreate(['label' => 'ROLE_SUPER_ADMIN']);
 
         // 20 user accounts linked to the user role
-        AccountFactory::createMany(20, fn () => [
+        AccountFactory::createMany(20, fn() => [
             'role' => $userRole,
         ]);
 
@@ -23,6 +24,12 @@ final class UserStory extends Story
         AccountFactory::createOne([
             'email' => 'admin@example.com',
             'role'  => $adminRole,
+        ]);
+
+        // 1 super admin account
+        AccountFactory::createOne([
+            'email' => 'superadmin@example.com',
+            'role'  => $superAdminRole,
         ]);
     }
 }
