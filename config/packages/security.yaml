@@ -25,7 +25,6 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
-    security:
     role_hierarchy:
         ROLE_SUPER_ADMIN: [ROLE_ADMIN]
         ROLE_ADMIN:       [ROLE_USER]
