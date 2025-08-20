@@ -24,12 +24,14 @@ final class UserStory extends Story
         AccountFactory::createOne([
             'email' => 'admin@example.com',
             'role'  => $adminRole,
+            'password' => 'adminpassword', 
         ]);
 
         // 1 super admin account
         AccountFactory::createOne([
             'email' => 'superadmin@example.com',
             'role'  => $superAdminRole,
+            'password' => 'superadminpassword',
         ]);
     }
 }
