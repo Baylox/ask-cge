@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\UX\Turbo\Attribute\Broadcast;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use App\Entity\Role;
 
 #[ORM\Entity(repositoryClass: AccountRepository::class)]
 // #[Broadcast]
@@ -27,7 +28,7 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\ManyToOne(inversedBy: 'accounts')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?role $role = null;
+    private ?Role $role = null;
 
     /**
      * @var Collection<int, board>
@@ -73,9 +74,34 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->email ?? '';
     }
 
+    /*
+    * Function for user roles
+    */
     public function getRoles(): array
     {
-        return ['ROLE_USER']; 
+        // Get the role label (ROLE_ADMIN, ROLE_USER, etc.)
+        $roleLabel = $this->role?->getLabel() ?? 'ROLE_USER';
+
+        // Symfony expects an array
+        $roles = [$roleLabel];
+
+        // Always guarantee at least ROLE_USER
+        if (!in_array('ROLE_USER', $roles, true)) {
+            $roles[] = 'ROLE_USER';
+        }
+
+        return array_unique($roles);
+    }
+    
+    public function getRole(): ?Role
+    {
+        return $this->role;
+    }
+
+    public function setRole(?Role $role): self
+    {
+        $this->role = $role;
+        return $this;
     }
 
     public function eraseCredentials(): void {}

@@ -64,15 +64,10 @@ class Role
         return $this;
     }
 
+    // Function to remove an account from the role (In a Service asap)
     public function removeAccount(Account $account): static
     {
-        if ($this->accounts->removeElement($account)) {
-            // set the owning side to null (unless already changed)
-            if ($account->getRole() === $this) {
-                $account->setRole(null);
-            }
-        }
-
+        $this->accounts->removeElement($account);
         return $this;
     }
 }
