@@ -7,10 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\UX\Turbo\Attribute\Broadcast;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: AccountRepository::class)]
 // #[Broadcast]
-class Account
+class Account implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -55,29 +57,28 @@ class Account
         return $this;
     }
 
-    public function getPassword(): ?string
+    public function getPassword(): string
     {
-        return $this->password;
+        return $this->password ?? '';
     }
 
     public function setPassword(string $password): static
     {
         $this->password = $password;
-
         return $this;
     }
 
-    public function getRole(): ?role
+    public function getUserIdentifier(): string
     {
-        return $this->role;
+        return $this->email ?? '';
     }
 
-    public function setRole(?role $role): static
+    public function getRoles(): array
     {
-        $this->role = $role;
-
-        return $this;
+        return ['ROLE_USER']; 
     }
+
+    public function eraseCredentials(): void {}
 
     /**
      * @return Collection<int, board>
