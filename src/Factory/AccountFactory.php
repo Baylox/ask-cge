@@ -33,7 +33,7 @@ final class AccountFactory extends PersistentProxyObjectFactory
     {
         return [
             'email' => self::faker()->safeEmail(), 
-            'password' => self::faker()->password(12, 20),
+            'password' => 'password',
             'role' => RoleFactory::randomOrCreate(['label' => 'ROLE_USER']),
         ];
     }
