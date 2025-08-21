@@ -6,6 +6,7 @@ use App\Entity\Account;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+
 /**
  * @extends PersistentProxyObjectFactory<Account>
  */
@@ -42,8 +43,12 @@ final class AccountFactory extends PersistentProxyObjectFactory
      */
     protected function initialize(): static
     {
-        return $this
-            // ->afterInstantiate(function(Account $account): void {})
-        ;
+        return $this->afterInstantiate(function(Account $account): void {
+            if ($account->getPassword()) {
+                $account->setPassword(
+                    $this->passwordHasher->hashPassword($account, $account->getPassword())
+                );
+            }
+        });
     }
 }
