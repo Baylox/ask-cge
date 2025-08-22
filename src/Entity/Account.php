@@ -31,9 +31,9 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
     private ?Role $role = null;
 
     /**
-     * @var Collection<int, board>
+     * @var Collection<int, Board>
      */
-    #[ORM\ManyToMany(targetEntity: board::class, inversedBy: 'accounts')]
+    #[ORM\ManyToMany(targetEntity: Board::class, inversedBy: 'accounts')]
     private Collection $boards;
 
     public function __construct()
