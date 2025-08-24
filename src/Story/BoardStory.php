@@ -10,6 +10,9 @@ final class BoardStory extends Story
 {
     public function build(): void
     {
-        BoardFactory::new()->withAccounts(3)->create();
+        BoardFactory::new()
+            ->create([
+                'accounts' => AccountFactory::randomSet(10), 
+            ]);
     }
 }
