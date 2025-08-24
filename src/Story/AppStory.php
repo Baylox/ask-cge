@@ -12,10 +12,19 @@ final class AppStory extends Story
 {
     public function build(): void
     {
-        UserStory::load(); // Load the user story
-        BoardStory::load(); // Load the board story
-        BoardLanesStory::load(); // Load the board lanes story
-        BoardsLanesCardsStory::load(); // Load the boards, lanes, and cards story
-        AdminBoardsStory::load(); // Load the admin boards story
+        // Load the user story
+        UserStory::load();
+
+        // Load the board story
+        BoardStory::load();
+        
+        // Load the board lanes story
+        BoardLanesStory::load();
+
+        // Load the boards, lanes, and cards story
+        BoardsLanesCardsStory::load();
+
+        // Load the admin boards story
+        AdminBoardsStory::load();
     }
 }
