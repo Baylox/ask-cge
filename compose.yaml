@@ -10,7 +10,7 @@ services:
       # For example, to allow the host to connect to port 3306 on the container, you would change
       # "3306" to "3306:3306". Where the first port is exposed to the host and the second is the container port.
       # See https://docs.docker.com/compose/compose-file/compose-file-v3/#ports for more information.
-      - "3306"
+      - "3370:3306"
       # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume.
     volumes:
       - ./docker/db:/var/lib/mysql:rw
@@ -41,6 +41,18 @@ services:
       - mercure_data:/data
       - mercure_config:/config
 ###< symfony/mercure-bundle ###
+
+  phpmyadmin:
+      depends_on:
+          - database
+      image: phpmyadmin:latest
+      restart: always
+      ports:
+          - 8040:80
+      environment:
+          PMA_HOST: database
+          PMA_USER: root
+          PMA_PASSWORD: monPass
 
 volumes:
   ###> doctrine/doctrine-bundle ###
