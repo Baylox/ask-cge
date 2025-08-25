@@ -21,8 +21,22 @@
       {{ vite_entry_script_tags('app') }}
     {% endblock %}
   </head>
+  
+      <form action="{{ path('app_locale_set') }}" method="post">
+        <input type="hidden" name="_token" value="{{ csrf_token('set-locale') }}">
 
-  <body>
+        <select name="locale" id="locale_locale">
+            {% for locale in constant('App\\Constants::MANAGED_LOCALE') %}
+                <option value="{{ locale }}" {% if app.request.locale == locale %}selected{% endif %}>
+                    {{ locale|locale_name(app.request.locale) }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Change language</button>
+    </form>
+
+    
     {% include 'partials/navbar.html.twig' %}
 
     <main>

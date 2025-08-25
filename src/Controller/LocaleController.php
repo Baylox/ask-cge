@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use App\Constants;
+use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 #[Route('/locale')]
 class LocaleController extends AbstractController
@@ -23,15 +24,20 @@ class LocaleController extends AbstractController
         if ($locale) {
             $violations = $validator->validate($locale, [
                 new NotBlank(),
-                new Choice(choices: Constants::MANAGED_LOCALES),
+                new Choice(choices: Constants::MANAGED_LOCALE),
             ]);
         }
         if (0=== $violations->count()){
             $request->getSession()->set('locale', $locale);
+            return $this->redirectToRoute('app_home');
         }
 
-        $request->getSession()->set('locale', $locale);
+        throw new UnprocessableEntityHttpException(
+        sprintf(
+            'Locale should be in (%s)',
+            implode(', ', Constants::MANAGED_LOCALE)
+        )
+    );
 
-        return $this->redirectToRoute('app_home');
     }
 }
