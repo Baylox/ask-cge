@@ -52,7 +52,7 @@ services:
       environment:
           PMA_HOST: database
           PMA_USER: root
-          PMA_PASSWORD: monPass
+          PMA_PASSWORD: password
 
 volumes:
   ###> doctrine/doctrine-bundle ###
