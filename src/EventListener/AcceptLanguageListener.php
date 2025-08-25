@@ -8,7 +8,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 /*
  * This listener is responsible for setting the locale based on the Accept-Language header
- * sent by the client. It runs after the default locale (priority 16).
+ * sent by the client. It runs after the default locale (priority 15).
  */
 #[AsEventListener(event: KernelEvents::REQUEST, priority: 32)] // 32 to run after the default locale is set
 final class AcceptLanguageListener
