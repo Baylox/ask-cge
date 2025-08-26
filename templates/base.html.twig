@@ -29,7 +29,7 @@
 		<input type="hidden" name="_token" value="{{ csrf_token('set-locale') }}">
 
 		<select name="locale" id="locale_locale">
-			{% for locale in constant('App\\Constants::MANAGED_LOCALE') %}
+			{% for locale in managed_locales %}
 				<option value="{{ locale }}" {% if app.request.locale == locale %} selected {% endif %}>
 					{{ locale|locale_name(app.request.locale) }}
 				</option>

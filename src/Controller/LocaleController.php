@@ -24,7 +24,7 @@ class LocaleController extends AbstractController
         if ($locale) {
             $violations = $validator->validate($locale, [
                 new NotBlank(),
-                new Choice(choices: Constants::MANAGED_LOCALE),
+                new Choice(choices: $this->getParameter('managed_locales')),
             ]);
         }
         if (0=== $violations->count()){
@@ -35,7 +35,7 @@ class LocaleController extends AbstractController
         throw new UnprocessableEntityHttpException(
         sprintf(
             'Locale should be in (%s)',
-            implode(', ', Constants::MANAGED_LOCALE)
+            implode(', ', $this->getParameter('managed_locales'))
         )
     );
 

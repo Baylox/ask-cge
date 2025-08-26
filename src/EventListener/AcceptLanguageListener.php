@@ -10,16 +10,19 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
  * sent by the client. It runs after the default locale (priority 15).
  */
 #[AsEventListener(priority: 32)] // 32 to run after the default locale is set
-final class AcceptLanguageListener
+final readonly class AcceptLanguageListener
 {
-    public const MANAGED_LOCALES = ['en', 'fr'];
+    public function __construct(private array $managedLocales)
+
+    {
+    }
 
     public function __invoke(RequestEvent $event): void
     {
         $request = $event->getRequest();
 
         // Detect the best language from the user's Accept-Language header
-        $preferredLocale = $request->getPreferredLanguage(self::MANAGED_LOCALES);
+        $preferredLocale = $request->getPreferredLanguage($this->managedLocales);
 
         if ($preferredLocale) {
             // Apply the detected locale to the current request
