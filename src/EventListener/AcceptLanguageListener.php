@@ -22,10 +22,28 @@ final readonly class AcceptLanguageListener
         $request = $event->getRequest();
 
         // Detect the best language from the user's Accept-Language header
+        $sessionLocale = $request->getSession()->get('locale');
         $preferredLocale = $request->getPreferredLanguage($this->managedLocales);
 
         if ($preferredLocale) {
             // Apply the detected locale to the current request
+            $request->setLocale($preferredLocale);
+        }
+    }
+
+    /**
+     * Summary of setFromSession
+     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
+     * @return void
+     * We should take the treatment of the session locale in one method later
+     */
+    public function setFromSession(RequestEvent $event): void
+    {
+        $request = $event->getRequest();
+        $preferredLocale = $request->getSession()->get('locale');
+
+
+        if ($preferredLocale) {
             $request->setLocale($preferredLocale);
         }
     }
