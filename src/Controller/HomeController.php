@@ -24,6 +24,6 @@ final class HomeController extends AbstractController
             return $response;
         }
 
-        return $this->render('default/index.html.twig');
+        return $this->render('home/index.html.twig');
     }
 }
