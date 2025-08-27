@@ -2,9 +2,11 @@
 
 namespace App\Command;
 
+
 use App\Entity\Account;
 use App\Repository\AccountRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Question\Question;
@@ -13,14 +15,14 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Validator\Constraints\NotCompromisedPassword;
 use Symfony\Component\Validator\Constraints\PasswordStrength;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Validator\Constraints\NotCompromisedPassword;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 
 #[AsCommand(
-    name: 'app:account-reset-password',
+    name: 'account-reset-password',
     description: 'Add a short description for your command',
 )]
 class AccountResetPasswordCommand extends Command
@@ -57,7 +59,6 @@ class AccountResetPasswordCommand extends Command
         }
 
 
-
         $account = $this->accountRepository->findOneBy(['email' => $username]);
         if (!$account) {
             $io->error('Aucun compte trouvé avec cet email.');
@@ -67,10 +68,17 @@ class AccountResetPasswordCommand extends Command
 
         $password = $io->askHidden('Mot de passe'); // Permet de ne pas afficher ce qui est tapé à l'écran
 
+        $sw = new Stopwatch();
+        $sw->start('validation'); // lance le chrono
+
         $violations = $this->validator->validate($password, [
             new PasswordStrength(),
             new NotCompromisedPassword()
         ]);
+        $event = $sw->stop('validation'); // Stop le chrono
+        if ($output->isVerbose()) {
+            $io->info('Validation time: ' . $event->getDuration() . ' ms.'); // Affiche le chrono en ms
+        }
 
         if (0 < $violations->count()) {
             foreach ($violations as $violation)
