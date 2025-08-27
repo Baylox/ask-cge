@@ -17,13 +17,7 @@ class BoardType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('updatedAt', null, [
-                'widget' => 'single_text',
-            ])
             ->add('state', EnumType::class,['class' => BoardState::class],)
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
-            ])
             ->add('accounts', EntityType::class, [
                 'class' => Account::class,
                 'choice_label' => 'id',

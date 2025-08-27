@@ -2,6 +2,8 @@ twig:
     file_name_pattern: '*.twig'
     globals:
         managed_locales: '%managed_locales%'
+    form_themes:
+        - tailwind_2_layout.html.twig
 
 when@test:
     twig:
