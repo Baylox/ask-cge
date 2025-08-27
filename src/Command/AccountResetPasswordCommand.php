@@ -11,6 +11,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -39,11 +40,16 @@ class AccountResetPasswordCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $email = $io->ask('Quel est votre email ?');
-        $account = $this->accountRepository->findOneBy(['email' => $email]);
-        if (!$account) {
-            $io->warning('Aucun compte trouvé avec cet email. Êtes-vous sûr de l\'avoir saisi correctement ?');
+        $question = new Question('Indiquer l\'email?');
+        $question->setAutocompleterCallback(
+            fn(string $userInput): array => $this->accountRepository->autocompleteUsernames($userInput)
+        );
 
+        $username = $io->askQuestion($question);
+
+        $account = $this->accountRepository->findOneBy(['email' => $username]);
+        if (!$account) {
+            $io->error('Aucun compte trouvé avec cet email.');
 
             return Command::FAILURE;
         }
