@@ -3,17 +3,21 @@
 namespace App\Command;
 
 use App\Entity\Account;
-use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AccountRepository;
-use Symfony\Component\Console\Attribute\AsCommand;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Validator\Constraints\NotCompromisedPassword;
+use Symfony\Component\Validator\Constraints\PasswordStrength;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+
 
 #[AsCommand(
     name: 'app:account-reset-password',
@@ -21,17 +25,19 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 )]
 class AccountResetPasswordCommand extends Command
 {
-    public function __construct(private AccountRepository $accountRepository,
-    private UserPasswordHasherInterface $passwordHasher,
-    private EntityManagerInterface $entityManager)
-    {
+    public function __construct(
+        private AccountRepository $accountRepository,
+        private UserPasswordHasherInterface $passwordHasher,
+        private EntityManagerInterface $entityManager,
+        private ValidatorInterface $validator
+    ) {
         parent::__construct();
     }
 
     protected function configure(): void
     {
         $this
-            ->addArgument('arg1', InputArgument::OPTIONAL, 'Argument description')
+            ->addArgument('username', InputArgument::OPTIONAL, 'Username for user to reset password')
             ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
         ;
     }
@@ -40,12 +46,17 @@ class AccountResetPasswordCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $question = new Question('Indiquer l\'email?');
-        $question->setAutocompleterCallback(
-            fn(string $userInput): array => $this->accountRepository->autocompleteUsernames($userInput)
-        );
+        $username = $input->getArgument('username');
 
-        $username = $io->askQuestion($question);
+        if (!$username) {
+            $question = new Question('Indiquer l\'email du compte');
+            $question->setAutocompleterCallback(
+                fn(string $userInput): array => $this->accountRepository->autocompleteUsernames($userInput)
+            );
+            $username = $io->askQuestion($question);
+        }
+
+
 
         $account = $this->accountRepository->findOneBy(['email' => $username]);
         if (!$account) {
@@ -54,8 +65,20 @@ class AccountResetPasswordCommand extends Command
             return Command::FAILURE;
         }
 
-        // TODO: Implement password reset logic
-        $password = $io->askHidden('Quel est votre nouveau mot de passe ?'); // Permet de ne pas afficher ce qui est tapé à l'écran
+        $password = $io->askHidden('Mot de passe'); // Permet de ne pas afficher ce qui est tapé à l'écran
+
+        $violations = $this->validator->validate($password, [
+            new PasswordStrength(),
+            new NotCompromisedPassword()
+        ]);
+
+        if (0 < $violations->count()) {
+            foreach ($violations as $violation)
+                $io->error($violation->getMessage());
+
+            return Command::FAILURE;
+        }
+
 
         $account->setPassword($this->passwordHasher->hashPassword($account, $password));
         $this->entityManager->flush();
