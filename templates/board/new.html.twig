@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create a new Board
+{% endblock %}
+
+{% block body %}
+	{{ form_start(form) }}
+	{{ form_errors(form) }}
+    {{ form_widget(form) }}
+    <button>Submit</button>
+    {{ form_end(form) }}
+{% endblock %}
