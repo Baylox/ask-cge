@@ -40,7 +40,7 @@ class AccountResetPasswordCommand extends Command
     {
         $this
             ->addArgument('username', InputArgument::OPTIONAL, 'Username for user to reset password')
-            ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
+            ->addOption('temp','t', null, InputOption::VALUE_NONE, 'Temporary password')
         ;
     }
 
@@ -89,6 +89,11 @@ class AccountResetPasswordCommand extends Command
 
 
         $account->setPassword($this->passwordHasher->hashPassword($account, $password));
+        if ($input->getOption('temp')) {
+            // mark user to change password
+        }
+
+
         $this->entityManager->flush();
 
         return Command::SUCCESS;
