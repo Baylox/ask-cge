@@ -32,17 +32,14 @@ class AccountResetPasswordCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $arg1 = $input->getArgument('arg1');
 
-        if ($arg1) {
-            $io->note(sprintf('You passed an argument: %s', $arg1));
-        }
-
-        if ($input->getOption('option1')) {
-            // ...
-        }
-
-        $io->success('Hello there !');
+        $output->writeln([
+            'Commande en cours d\'exécution',
+            '==========================',
+            '',
+        ]);
+        $name = $io->ask('Quel est votre nom ?');
+        $io->success(sprintf('Bonjour %s, votre commande a bien été exécutée !', $name));
 
         return Command::SUCCESS;
     }
