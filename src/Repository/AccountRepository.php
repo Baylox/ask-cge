@@ -25,8 +25,8 @@ class AccountRepository extends ServiceEntityRepository
             ->andWhere('user.email LIKE :pattern')
             ->setParameter('pattern', $userInput . '%')
             ->getQuery()
-            ->getScalarResult();
+            ->getSingleColumnResult();
 
-        return array_column($results, 'email');
+        return $results;
     }
 }
