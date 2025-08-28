@@ -3,12 +3,14 @@
 namespace App\Entity;
 
 use App\DateRange;
+use Gedmo\Timestampable;
 use App\Type\DateRangeType;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\BoardRepository;
 use Symfony\UX\Turbo\Attribute\Broadcast;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: BoardRepository::class)]
 // #[Broadcast]
@@ -35,7 +37,9 @@ class Board
     #[ORM\OrderBy(['position' => 'ASC'])]
     private Collection $lanes;
 
+
     #[ORM\Column(nullable: true)]
+    #[Gedmo\Timestampable]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(enumType:BoardState::class)]
