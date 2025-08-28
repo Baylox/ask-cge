@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\DateRange;
 use App\Repository\AccountRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,6 +11,8 @@ use Symfony\UX\Turbo\Attribute\Broadcast;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use App\Entity\Role;
+use App\Form\DateRangeType;
+
 
 #[ORM\Entity(repositoryClass: AccountRepository::class)]
 // #[Broadcast]
@@ -29,6 +32,9 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne(inversedBy: 'accounts')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Role $role = null;
+
+    #[ORM\Column(type: DateRangeType::TYPE)]
+    private ?DateRange $range = null;
 
     /**
      * @var Collection<int, Board>
@@ -92,7 +98,7 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
 
         return array_unique($roles);
     }
-    
+
     public function getRole(): ?Role
     {
         return $this->role;
@@ -126,6 +132,26 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeBoard(board $board): static
     {
         $this->boards->removeElement($board);
+
+        return $this;
+    }
+
+    /**
+     * Get the value of range
+     */
+    public function getRange()
+    {
+        return $this->range;
+    }
+
+    /**
+     * Set the value of range
+     *
+     * @return  self
+     */
+    public function setRange($range)
+    {
+        $this->range = $range;
 
         return $this;
     }
