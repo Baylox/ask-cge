@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create a new Board
+{% endblock %}
+
+{% block body %}
+    {{ include('board/_form.html.twig', {'form': form, 'action': 'Edit'}) }}
+{% endblock %}

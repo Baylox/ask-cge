@@ -1,0 +1,47 @@
+    <div class="max-w-xl mx-auto mt-10 bg-white p-6 rounded-2xl shadow-lg">
+        {{ form_start(form, {'attr': {'class': 'space-y-5'}}) }}
+
+        {% for field in form %}
+            {# On ignore les champs hidden (ex: _token) #}
+            {% if 'hidden' not in field.vars.block_prefixes %}
+                <div class="space-y-1">
+                    {{ form_label(field, null, {
+                        'label_attr': {
+                            'class': 'block text-sm font-medium text-gray-800'
+                        }
+                    }) }}
+
+                    {% if field.vars.compound %}
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            {% for child in field %}
+                                {{ form_widget(child, {
+                                    'attr': {
+                                        'class': 'w-full rounded-lg border border-gray-300 bg-gray-100 px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500'
+                                    }
+                                }) }}
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form_widget(field, {
+                            'attr': {
+                                'class': 'w-full rounded-lg border border-gray-300 bg-gray-100 px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500'
+                            }
+                        }) }}
+                    {% endif %}
+
+                    {% if form_errors(field) %}
+                        <p class="text-sm text-red-600">{{ form_errors(field) }}</p>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <div class="pt-2 text-right">
+            <button type="submit"
+                    class="inline-flex items-center rounded-lg bg-indigo-600 px-5 py-2 font-semibold text-white shadow hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                {{ action || 'Submit' }}
+            </button>
+        </div>
+
+        {{ form_end(form) }}
+    </div>

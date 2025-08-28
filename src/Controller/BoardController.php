@@ -15,7 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 final class BoardController extends AbstractController
 {
     #[Route('/new', methods:['GET', 'POST'])]
-    public function index(Request $request, EntityManagerInterface $manager): Response
+    public function new(Request $request, EntityManagerInterface $manager): Response
     {
         $board = new Board();
         $form = $this->createForm(BoardType::class, $board);
@@ -34,4 +34,24 @@ final class BoardController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    #[Route("/edit/{id<\d+>}", methods: ["GET", "POST"])]
+    public function edit(Board $board, Request $request, EntityManagerInterface $manager): Response
+    {
+        $form = $this->createForm(BoardType::class, $board);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->flush();
+
+            return $this->redirectToRoute('app_board_edit', [
+                'id' => $board->getId(),
+            ]);
+        }
+
+        return $this->render('board/edit.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 }
+
