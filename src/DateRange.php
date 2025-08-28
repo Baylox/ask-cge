@@ -13,6 +13,7 @@ class DateRange
         $this->to = $to;
     }
 
+
     public function getFrom(): \DateTimeInterface
     {
         return $this->from;

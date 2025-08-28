@@ -11,7 +11,7 @@ use Symfony\UX\Turbo\Attribute\Broadcast;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use App\Entity\Role;
-use App\Form\DateRangeType;
+use App\Type\DateRangeType;
 
 
 #[ORM\Entity(repositoryClass: AccountRepository::class)]
