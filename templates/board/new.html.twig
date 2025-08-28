@@ -5,6 +5,16 @@
 
 {% block body %}
     {{ include('board/_form.html.twig', {'form': form}) }}
+
+    <div>
+        <form method="post" data-action="click->sign#submit">
+            <div>
+                <label for="sign-pad" class="form-label">Signature</label>
+                <canvas id="sign-pad" data-controller="sign" data-sign-target="pad"></canvas>
+                <button class="btn btn-primary">Valider</button>
+            </div>
+        </form>
+    </div>
 {% endblock %}
 
 

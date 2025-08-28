@@ -5,4 +5,10 @@
 
 {% block body %}
     {{ include('board/_form.html.twig', {'form': form, 'action': 'Edit'}) }}
+    {% extends 'base.html.twig' %}
+{# héritage :
+   - on part du template parent et on peut réécrire/redéfinir les blocks
+   - toute écriture à l’extérieur des blocks est interdite
+#}
+
 {% endblock %}
