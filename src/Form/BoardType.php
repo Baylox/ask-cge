@@ -24,10 +24,6 @@ class BoardType extends AbstractType
                 'choice_label' => 'email',
                 'multiple' => true,
             ])
-            ->add('createdAt', DateType::class, [
-                'widget' => 'choice',    // listes déroulantes
-                'format' => 'dd-MM-yyyy' // ordre jour-mois-année
-            ])
             ->add('range', DateRangeType::class)
         ;
     }
