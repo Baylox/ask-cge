@@ -32,8 +32,8 @@ class DateRangeType extends AbstractType implements DataMapperInterface
         }
 
         $forms = iterator_to_array($forms);
-        $forms['from']->setData($viewData->getFrom()->format('Y-m-d'));
-        $forms['to']->setData($viewData->getTo()->format('Y-m-d'));
+        $forms['from']->setData($viewData->getFrom());
+        $forms['to']->setData($viewData->getTo());
     }
 
     public function mapFormsToData(\Traversable $forms, mixed &$viewData): void
@@ -41,8 +41,8 @@ class DateRangeType extends AbstractType implements DataMapperInterface
         $forms = iterator_to_array($forms);
 
         $viewData = new DateRange(
-            new \DateTimeImmutable($forms['from']->getData()),
-            new \DateTimeImmutable($forms['to']->getData()),
+            $forms['from']->getData(),
+            $forms['to']->getData(),
         );
     }
 
@@ -50,10 +50,10 @@ class DateRangeType extends AbstractType implements DataMapperInterface
     {
         $builder
             ->add('from', DateType::class, [
-                'widget' => 'single_text',
+                'input' => 'datetime_immutable',
             ])
             ->add('to', DateType::class, [
-                'widget' => 'single_text',
+                'input' => 'datetime_immutable',
             ])
             ->setDataMapper($this);
     }

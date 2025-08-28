@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\DateRange;
+use App\Type\DateRangeType;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\BoardRepository;
 use Symfony\UX\Turbo\Attribute\Broadcast;
@@ -43,7 +44,7 @@ class Board
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column(type: \App\Type\DateRangeType::NAME, nullable: true)]
+    #[ORM\Column(name: 'date_range', type: DateRangeType::NAME, nullable: true)]
     private ?DateRange $range = null;
 
 
