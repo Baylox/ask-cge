@@ -4,7 +4,7 @@
 namespace App\Entity;
 
 enum BoardState: string{
-    case Publishe = 'PUBLISHED';
+    case Published = 'PUBLISHED';
 
-    case Draft = 'Draft';
+    case Draft = 'DRAFT';
 }
