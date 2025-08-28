@@ -33,7 +33,7 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?Role $role = null;
 
-    #[ORM\Column(type: DateRangeType::TYPE)]
+    #[ORM\Column(type: DateRangeType::NAME)]
     private ?DateRange $range = null;
 
     /**

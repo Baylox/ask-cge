@@ -1,50 +1,61 @@
 <?php
-
+// src/Type/DateRangeType.php
 namespace App\Type;
 
 use App\DateRange;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
 
-class DateRangeType extends Type
+final class DateRangeType extends Type
 {
-    const TYPE = 'date_range';
+    public const NAME = 'date_range';
 
-    /**
-     * @inheritDoc
-     */
-    public function getSQLDeclaration(array $column, AbstractPlatform $platform)
+    public function getName(): string
     {
-       return $platform->getStringTypeDeclarationSQL($column);
+        return self::NAME;
+    }
+    public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
+    {
+        // On stocke sous forme de VARCHAR; adapte la longueur si tu veux
+        $column['length'] = $column['length'] ?? 63;
+        return $platform->getStringTypeDeclarationSQL($column);
     }
 
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
+        if ($value === null) {
+            return null;
+        }
         if (!$value instanceof DateRange) {
-            throw new \InvalidArgumentException('$value should be an instance of App\\DateRange.');
+            throw new \InvalidArgumentException('$value should be an instance of App\\DateRange or null.');
         }
 
-        return sprintf('%u-%u', $value->getFrom()->getTimestamp(), $value->getTo()->getTimestamp());
-    }
-
-    public function convertToPHPValue($value, AbstractPlatform $platform): DateRange
-    {
-        sscanf($value, '%u-%u', $from, $to);
-
-        $fromDate = new \DateTimeImmutable();
-        $fromDate = $fromDate->setTimestamp($from);
-
-        return new DateRange(
-            $fromDate,
-            \DateTimeImmutable::createFromTimestamp($to), // À partir de PHP 8.4
+        // Exemple : "1704067200-1735689600"
+        return sprintf(
+            '%u-%u',
+            $value->getFrom()->getTimestamp(),
+            $value->getTo()->getTimestamp()
         );
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getName(): string
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?DateRange
     {
-        return self::TYPE;
+        if ($value === null || $value === '') {
+            return null;
+        }
+
+        sscanf($value, '%u-%u', $from, $to);
+
+        return new DateRange(
+            (new \DateTimeImmutable())->setTimestamp($from),
+            (new \DateTimeImmutable())->setTimestamp($to),
+        );
+    }
+
+    // Important pour que SchemaTool/Migrations conservent le type custom
+    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
+    {
+        return true;
     }
 }
+
