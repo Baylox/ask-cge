@@ -54,7 +54,6 @@
 {% endblock %}
 
 
-
 {#
     {{ form(form) }} affiche tout le formulaire
     {{ form_row(form.title) }} affiche tous les éléments relatifs au champ title
@@ -65,4 +64,13 @@
         * form_widget(form.title)
 
     form_start, form_rest, form_end
+
+
+    {% block body %}
+	{{ form_start(form) }}
+	{{ form_errors(form) }}
+    {{ form_widget(form) }}
+    <button>Submit</button>
+    {{ form_end(form) }}
+{% endblock %}
 #}
