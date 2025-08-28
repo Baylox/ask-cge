@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\BoardRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\DateRange;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\BoardRepository;
 use Symfony\UX\Turbo\Attribute\Broadcast;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: BoardRepository::class)]
 // #[Broadcast]
@@ -41,6 +42,9 @@ class Board
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column(type: \App\Type\DateRangeType::NAME, nullable: true)]
+    private ?DateRange $range = null;
 
 
     public function __construct()
@@ -163,6 +167,26 @@ class Board
     public function setCreatedAt(?\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of range
+     */
+    public function getRange()
+    {
+        return $this->range;
+    }
+
+    /**
+     * Set the value of range
+     *
+     * @return  self
+     */
+    public function setRange($range)
+    {
+        $this->range = $range;
 
         return $this;
     }

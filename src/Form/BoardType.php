@@ -28,6 +28,7 @@ class BoardType extends AbstractType
                 'widget' => 'choice',    // listes déroulantes
                 'format' => 'dd-MM-yyyy' // ordre jour-mois-année
             ])
+            ->add('range', DateRangeType::class)
         ;
     }
 
