@@ -1,0 +1,12 @@
+<div {{ attributes }}>
+    <form action="{{ path('app_locale_set') }}" method="post">
+        <label for="locale_locale">Langue</label>
+        <select name="locale" id="locale_locale" class="form-control">
+            {% for locale in this.managedLocales %}
+                {# ajout composer de twig/extra-bundle et twig/intl-extra #}
+                <option value="{{ locale }}">{{ locale | locale_name }}</option>
+            {% endfor %}
+        </select>
+        <button class="btn btn-primary">Valider</button>
+    </form>
+</div>
