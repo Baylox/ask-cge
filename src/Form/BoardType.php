@@ -23,6 +23,9 @@ class BoardType extends AbstractType
                 'choice_label' => 'id',
                 'multiple' => true,
             ])
+            ->add('createdAt', null, [
+            'widget' => 'choice',
+        ])
         ;
     }
 
