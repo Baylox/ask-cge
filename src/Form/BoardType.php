@@ -35,6 +35,7 @@ class BoardType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
+            'empty_data'=> null,
             'data_class' => Board::class,
         ]);
     }

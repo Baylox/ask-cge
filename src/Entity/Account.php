@@ -46,7 +46,6 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->boards = new ArrayCollection();
     }
-
     public function getId(): ?int
     {
         return $this->id;
