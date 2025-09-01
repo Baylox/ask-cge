@@ -30,7 +30,7 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Email(mode: EmailConstraint::VALIDATION_MODE_STRICT)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 125)]
+    #[ORM\Column(length: 255)]
     private ?string $password = null;
 
     #[ORM\ManyToOne(inversedBy: 'accounts')]
