@@ -19,17 +19,17 @@
   <div class="absolute inset-0 -z-10 pointer-events-none bg-gradient-to-b from-black/20 to-black/60"></div>
 
   {# Content above #}
-  <div class="relative z-10 px-4 max-w-xl">
-    <h1 id="hero-title" class="text-3xl md:text-4xl font-extrabold mb-3">
+  <div class="relative z-10 px-4 max-w-2xl">
+    <h1 id="hero-title" class="text-3xl md:text-6xl font-extrabold mb-3">
       {{ title }}
     </h1>
 
     {% if subtitle %}
-      <p class="text-base md:text-lg opacity-90 mb-5">{{ subtitle }}</p>
+      <p class="text-base md:text-xl opacity-90 mb-5">{{ subtitle }}</p>
     {% endif %}
 
     {% if ctaHref and ctaLabel %}
-      <a href="{{ ctaHref }}" class="btn btn-primary btn-wide shadow-lg">
+      <a href="{{ ctaHref }}" class="btn bg-gray-200 rounded-lg shadow-lg text-sm px-8 py-5">
         {{ ctaLabel }}
       </a>
     {% endif %}
