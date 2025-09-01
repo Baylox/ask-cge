@@ -93,8 +93,12 @@ class AccountResetPasswordCommand extends Command
             // mark user to change password
         }
 
-
         $this->entityManager->flush();
+
+        $io->success(sprintf(
+            "Le mot de passe du compte %s a été réinitialisé avec succès.",
+            $account->getEmail()
+        ));
 
         return Command::SUCCESS;
     }
