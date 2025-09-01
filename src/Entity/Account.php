@@ -2,14 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\AccountRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+
+use App\Entity\Role;
+use App\Entity\Board;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\AccountRepository;
 use Symfony\UX\Turbo\Attribute\Broadcast;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use App\Entity\Role;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Email as EmailConstraint;
+
 
 #[ORM\Entity(repositoryClass: AccountRepository::class)]
 // #[Broadcast]
@@ -21,6 +26,8 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 255, unique: true)]
+    #[Assert\NotBlank(message: "Email is required.")]
+    #[Assert\Email(mode: EmailConstraint::VALIDATION_MODE_STRICT)]
     private ?string $email = null;
 
     #[ORM\Column(length: 125)]
@@ -92,7 +99,7 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
 
         return array_unique($roles);
     }
-    
+
     public function getRole(): ?Role
     {
         return $this->role;
