@@ -2,7 +2,6 @@
 
 namespace App\Command;
 
-
 use App\Entity\Account;
 use App\Repository\AccountRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -20,10 +19,9 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\Constraints\NotCompromisedPassword;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-
 #[AsCommand(
-    name: 'account-reset-password',
-    description: 'Add a short description for your command',
+    name: 'account:reset-password',
+    description: 'Reset a user account password',
 )]
 class AccountResetPasswordCommand extends Command
 {
@@ -39,8 +37,8 @@ class AccountResetPasswordCommand extends Command
     protected function configure(): void
     {
         $this
-            ->addArgument('username', InputArgument::OPTIONAL, 'Username for user to reset password')
-            ->addOption('temp','t', null, InputOption::VALUE_NONE, 'Temporary password')
+            ->addArgument('username', InputArgument::OPTIONAL, 'Username of the account to reset password')
+            ->addOption('temp', 't', InputOption::VALUE_NONE, 'Temporary password')
         ;
     }
 
@@ -51,33 +49,32 @@ class AccountResetPasswordCommand extends Command
         $username = $input->getArgument('username');
 
         if (!$username) {
-            $question = new Question('Indiquer l\'email du compte');
+            $question = new Question('Enter the account email');
             $question->setAutocompleterCallback(
                 fn(string $userInput): array => $this->accountRepository->autocompleteUsernames($userInput)
             );
             $username = $io->askQuestion($question);
         }
 
-
         $account = $this->accountRepository->findOneBy(['email' => $username]);
         if (!$account) {
-            $io->error('Aucun compte trouvé avec cet email.');
+            $io->error('No account found with this email.');
 
             return Command::FAILURE;
         }
 
-        $password = $io->askHidden('Mot de passe'); // Permet de ne pas afficher ce qui est tapé à l'écran
+        $password = $io->askHidden('Password'); // Do not display input on screen
 
         $sw = new Stopwatch();
-        $sw->start('validation'); // lance le chrono
+        $sw->start('validation'); // Start stopwatch
 
         $violations = $this->validator->validate($password, [
             new PasswordStrength(),
             new NotCompromisedPassword()
         ]);
-        $event = $sw->stop('validation'); // Stop le chrono
+        $event = $sw->stop('validation'); // Stop stopwatch
         if ($output->isVerbose()) {
-            $io->info('Validation time: ' . $event->getDuration() . ' ms.'); // Affiche le chrono en ms
+            $io->info('Validation time: ' . $event->getDuration() . ' ms.'); // Display time in ms
         }
 
         if (0 < $violations->count()) {
@@ -87,7 +84,6 @@ class AccountResetPasswordCommand extends Command
             return Command::FAILURE;
         }
 
-
         $account->setPassword($this->passwordHasher->hashPassword($account, $password));
         if ($input->getOption('temp')) {
             // mark user to change password
@@ -96,7 +92,7 @@ class AccountResetPasswordCommand extends Command
         $this->entityManager->flush();
 
         $io->success(sprintf(
-            "Le mot de passe du compte %s a été réinitialisé avec succès.",
+            "The password for account %s has been successfully reset.",
             $account->getEmail()
         ));
 
