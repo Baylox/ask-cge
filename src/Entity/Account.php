@@ -120,7 +120,9 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeBoard(Board $board): static
     {
-        $this->boards->removeElement($board);
+        if ($this->boards->removeElement($board)) {
+        $board->removeAccount($this);
+    }
 
         return $this;
     }
