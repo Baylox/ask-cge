@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 
-use App\Entity\Role;
 use App\Entity\Board;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\AccountRepository;
@@ -14,9 +13,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Email as EmailConstraint;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 #[ORM\Entity(repositoryClass: AccountRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'This email is already used.')]
 // #[Broadcast]
 class Account implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -30,18 +31,19 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Email(mode: EmailConstraint::VALIDATION_MODE_STRICT)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'string', length: 255)]
     private ?string $password = null;
 
-    #[ORM\ManyToOne(inversedBy: 'accounts')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Role $role = null;
+    #[ORM\Column(type: 'json')]
+    private array $roles = [];
 
     /**
      * @var Collection<int, Board>
      */
     #[ORM\ManyToMany(targetEntity: Board::class, inversedBy: 'accounts')]
     private Collection $boards;
+
+
 
     public function __construct()
     {
@@ -53,6 +55,8 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
+     // --- Email ---
+
     public function getEmail(): ?string
     {
         return $this->email;
@@ -60,10 +64,13 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setEmail(string $email): static
     {
-        $this->email = $email;
+        // remove extra spaces and convert to lowercase
+        $this->email = mb_strtolower(trim($email));
 
         return $this;
     }
+
+    // --- Password (hash) ---
 
     public function getPassword(): string
     {
@@ -86,29 +93,11 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
     */
     public function getRoles(): array
     {
-        // Get the role label (ROLE_ADMIN, ROLE_USER, etc.)
-        $roleLabel = $this->role?->getLabel() ?? 'ROLE_USER';
-
-        // Symfony expects an array
-        $roles = [$roleLabel];
-
-        // Always guarantee at least ROLE_USER
-        if (!in_array('ROLE_USER', $roles, true)) {
-            $roles[] = 'ROLE_USER';
-        }
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
-    }
-
-    public function getRole(): ?Role
-    {
-        return $this->role;
-    }
-
-    public function setRole(?Role $role): self
-    {
-        $this->role = $role;
-        return $this;
     }
 
     public function eraseCredentials(): void {}
@@ -136,4 +125,5 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
 }
