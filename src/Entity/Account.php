@@ -29,6 +29,7 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, unique: true)]
     #[Assert\NotBlank(message: "Email is required.")]
     #[Assert\Email(mode: EmailConstraint::VALIDATION_MODE_STRICT)]
+    #[Assert\Length(max: 255)]
     private ?string $email = null;
 
     #[ORM\Column(type: 'string', length: 255)]
@@ -42,8 +43,6 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\ManyToMany(targetEntity: Board::class, inversedBy: 'accounts')]
     private Collection $boards;
-
-
 
     public function __construct()
     {
@@ -88,29 +87,28 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->email ?? '';
     }
 
-    /*
-    * Function for user roles
-    */
+    // -- Account's Role --
+
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+        return array_values(array_unique($roles));
     }
 
     public function eraseCredentials(): void {}
 
+    // --- Account's Boards ---
+
     /**
-     * @return Collection<int, board>
+     * @return Collection<int, Board>
      */
     public function getBoards(): Collection
     {
         return $this->boards;
     }
 
-    public function addBoard(board $board): static
+    public function addBoard(Board $board): static
     {
         if (!$this->boards->contains($board)) {
             $this->boards->add($board);
@@ -119,7 +117,7 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeBoard(board $board): static
+    public function removeBoard(Board $board): static
     {
         $this->boards->removeElement($board);
 
