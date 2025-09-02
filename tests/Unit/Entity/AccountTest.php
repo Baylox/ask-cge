@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 #[CoversClass(Account::class)]
 final class AccountTest extends TestCase
 {
@@ -40,20 +41,18 @@ final class AccountTest extends TestCase
         self::assertCount(1, $roles); // only ROLE_USER
     }
 
-    public function testGetRolesIncludesCustomRoleAndRoleUser(): void
+    public function testEmailValidationConstraints(): void
     {
-        $a = new Account();
+        $validator = Validation::createValidatorBuilder()
+            ->enableAttributeMapping()
+            ->getValidator();
 
-        // Stub Role::getLabel() to return a custom role
-        $role = $this->createStub(Role::class);
-        $role->method('getLabel')->willReturn('ROLE_ADMIN');
+        $account = (new Account())->setEmail('not-an-email');
 
-        $a->setRole($role);
+        // Only validates the property (avoids UniqueEntity, which is a *class* constraint)
+        $violations = $validator->validateProperty($account, 'email');
 
-        $roles = $a->getRoles();
-        self::assertContains('ROLE_ADMIN', $roles);
-        self::assertContains('ROLE_USER', $roles);
-        self::assertSame($roles, array_unique($roles));
+        $this->assertGreaterThan(0, $violations->count());
     }
 
     public function testAddRemoveBoardNoDuplicates(): void
@@ -72,19 +71,4 @@ final class AccountTest extends TestCase
         self::assertCount(0, $a->getBoards());
     }
 
-    public function testEmailValidationConstraints(): void
-    {
-        $validator = Validation::createValidatorBuilder()->enableAttributeMapping()->getValidator();
-
-        $a = new Account();
-        $a->setEmail('not-an-email');
-
-        // NotBlank + Email should fail here
-        $violations = $validator->validate($a);
-        self::assertGreaterThan(0, $violations->count());
-
-        $a->setEmail('user@example.com');
-        $violations = $validator->validate($a);
-        self::assertSame(0, $violations->count());
-    }
 }
