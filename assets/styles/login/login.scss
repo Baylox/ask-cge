@@ -1,0 +1,16 @@
+/* Centrage du contenu de la page login */
+main {
+  min-height: 100vh;              /* prend toute la hauteur de la fenêtre */
+  display: flex;                  /* active Flexbox */
+  justify-content: center;        /* centre horizontalement */
+  align-items: center;            /* centre verticalement */
+}
+
+/* Optionnel : style du formulaire */
+main form {
+  background: rgba(255, 255, 255, 0.2);              /* fond blanc pour contraster */
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
