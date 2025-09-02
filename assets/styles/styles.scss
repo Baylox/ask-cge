@@ -1,11 +1,12 @@
-// Import des variables globales
+// Import global variables
 @use 'base/variables.scss';
+@use 'base/input.scss';
+@use 'base/background.scss';
 
-// Page Login
-@use 'login/login.scss';
+// Login page
+@use 'pages/login.scss';
 
-// Background du site entier
-@use 'background/background.scss';
+// Site-wide background
 
-// Champ du formulaire
-@use 'input/input.scss';
+
+
