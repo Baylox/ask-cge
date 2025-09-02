@@ -35,8 +35,8 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255)]
     private ?string $password = null;
 
-    #[ORM\Column(type: 'json')]
-    private array $roles = [];
+    #[ORM\Column(length: 50)]
+    private string $role = 'ROLE_USER';
 
     /**
      * @var Collection<int, Board>
@@ -89,11 +89,21 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
 
     // -- Account's Role --
 
+
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        $roles[] = 'ROLE_USER';
-        return array_values(array_unique($roles));
+        return [$this->role];
+    }
+
+    public function getRole(): string
+    {
+        return $this->role;
+    }
+
+    public function setRole(string $role): self
+    {
+        $this->role = strtoupper($role);
+        return $this;
     }
 
     public function eraseCredentials(): void {}
