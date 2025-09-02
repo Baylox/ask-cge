@@ -36,7 +36,7 @@ class Card
     private ?string $status = null;
 
     #[Assert\PositiveOrZero]
-    #[ORM\Column(type: Types::SMALLINT)]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $position = null;
 
     #[ORM\ManyToOne(inversedBy: 'cards')]
