@@ -112,6 +112,7 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->boards->contains($board)) {
             $this->boards->add($board);
+            $board->addAccount($this);
         }
 
         return $this;
