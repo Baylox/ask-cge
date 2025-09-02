@@ -1,5 +1,7 @@
+@use "../base/variables";
+
 input {
-  border: 2px solid $color-ui;
+  border: 2px solid variables.$color-ui;
   border-radius: 6px;        // coins arrondis
   padding: 0.5rem;           // espace intérieur
 }
