@@ -140,6 +140,8 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    // --- Is Verified (For mailing purposes) ---
+
     public function isVerified(): bool
     {
         return $this->isVerified;

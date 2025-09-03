@@ -20,6 +20,7 @@ final class UserStory extends Story
             'email' => 'admin@example.com',
             'role'  => 'ROLE_ADMIN',
             'password' => 'adminpassword',
+            'isVerified' => true
         ]);
 
         // 1 super admin account
@@ -27,6 +28,7 @@ final class UserStory extends Story
             'email' => 'superadmin@example.com',
             'role'  => 'ROLE_SUPER_ADMIN',
             'password' => 'superadminpassword',
+            'isVerified' => true
         ]);
     }
 }

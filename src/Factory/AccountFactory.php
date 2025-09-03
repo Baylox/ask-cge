@@ -35,6 +35,7 @@ final class AccountFactory extends PersistentProxyObjectFactory
             'email' => self::faker()->safeEmail(),
             'password' => 'password',
             'role' => 'ROLE_USER',
+            'isVerified' => true
         ];
     }
 
