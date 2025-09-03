@@ -1,2 +1,26 @@
-@import "tailwindcss";
-@plugin "daisyui";
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Animations personnalisées */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Styles personnalisés */
+.animate-slideDown {
+    animation: slideDown 200ms ease-out;
+}
+
+/* Personnalisation DaisyUI si nécessaire */
+[data-theme="corporate"] {
+    --primary: #5B7FFF;
+}

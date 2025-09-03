@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 	<head>
 		<meta charset="UTF-8">
 		<title>
@@ -12,8 +12,9 @@
 
 
 		{% block stylesheets %}
-			{{ vite_entry_link_tags('app') }}
-		{% endblock %}
+            {{ vite_entry_link_tags('app') }}
+            {{ vite_entry_link_tags('styles') }}
+        {% endblock %}
 
 		{% block javascripts %}
 			{{ vite_entry_script_tags('app') }}
