@@ -32,8 +32,12 @@
 
     <!-- Right: Icône utilisateur -->
     <div class="navbar-end">
-        <button class="btn btn-ghost btn-circle">
-            <i class="fa-solid fa-user text-lg text-white-700 hover:text-primary"></i>
-        </button>
+        <button
+            type="button"
+            class="btn btn-ghost btn-circle"
+            onclick="window.location.href='{{ path('app_login') }}'">
+        <i class="fa-solid fa-user text-lg text-white-700 hover:text-primary"></i>
+</button>
+
     </div>
 </div>
