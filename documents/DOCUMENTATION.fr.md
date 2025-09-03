@@ -26,6 +26,7 @@
 
 - [Stimulus (Hotwired)](https://stimulus.hotwired.dev/)
 - [Turbo Drive](https://turbo.hotwired.dev/)
+- [Mercure](https://mercure.rocks/docs)
 
 ## Fixtures et Tests
 

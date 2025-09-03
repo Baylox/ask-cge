@@ -20,6 +20,11 @@ class Board
 
     #[ORM\Column(length: 50)]
     #[Assert\NotBlank(message: "Title is required.")]
+    #[ORM\Index(columns: ['title'], name: 'idx_board_title')]
+    #[Assert\Length(
+        max: 50,
+        maxMessage: "Title must be at most {{ limit }} characters."
+    )]
     private ?string $title = null;
 
     /**
