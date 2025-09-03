@@ -3,6 +3,7 @@ import '@hotwired/turbo';
 import { Application } from '@hotwired/stimulus';
 import { registerControllers } from 'stimulus-vite-helpers';
 import './styles/app.css';
+import './styles/styles.scss';
 
 
 // Enable Turbo (replaces traditional redirects)

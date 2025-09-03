@@ -6,8 +6,10 @@
     "@symfony/ux-turbo": "file:vendor/symfony/ux-turbo/assets",
     "@tailwindcss/postcss": "^4.1.11",
     "autoprefixer": "^10.4.21",
-    "daisyui": "^5.0.47",
+    "daisyui": "^5.1.5",
     "postcss": "^8.5.6",
+    "sass-embedded": "^1.91.0",
+    "sass-migrator": "^2.4.2",
     "tailwindcss": "^4.1.11",
     "vite": "^6.3.5",
     "vite-plugin-symfony": "^8.2.0"
