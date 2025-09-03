@@ -1,71 +1,63 @@
-<div class="navbar bg-base-100/20 backdrop-blur shadow-md px-4 md:px-6">
-    <!-- Left: logo -->
-    <div class="navbar-start flex-1">
-        <a href="{{ path('app_home') }}" class="flex items-center gap-2">
-            <img src="{{ asset('assets/images/logo/logo-taskio.svg') }}" alt="Taskio" class="h-7 w-auto">
-        </a>
-    </div>
+<!-- FIXED HEADER, ABOVE EVERYTHING -->
+<header class="fixed top-0 inset-x-0 z-[999]">
+    <div class="navbar bg-base-100/20 backdrop-blur shadow-md px-4 md:px-6">
+        <!-- Left: logo -->
+        <div class="navbar-start flex-1">
+            <a href="{{ path('app_home') }}" class="flex items-center gap-2">
+                <img src="{{ asset('assets/images/logo/logo-taskio.svg') }}" alt="Taskio" class="h-7 w-auto">
+            </a>
+        </div>
 
-    <!-- Center: mobile burger + desktop menu -->
-    <div class="navbar-center">
-        <!-- Centered mobile burger -->
-        <div class="dropdown md:hidden">
-            <button
-                tabindex="0"
-                class="btn btn-ghost btn-circle group transition duration-200 hover:scale-105 active:scale-95">
-                <!-- Burger icon -->
-                <svg xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6 transition-transform duration-200 group-hover:rotate-6"
-                    fill="none"
-                    viewbox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                </svg>
-            </button>
+        <!-- Center: BURGER opens drawer (mobile) -->
+        <div class="navbar-center">
+            <label for="main-drawer"
+                         class="btn btn-ghost btn-circle md:hidden aria-expanded:rotate-90 transition-transform duration-300"
+                         aria-label="Open menu" aria-expanded="false">
+                <div class="flex flex-col items-center justify-center space-y-1">
+                    <span class="block h-0.5 w-5 bg-base-content"></span>
+                    <span class="block h-0.5 w-5 bg-base-content"></span>
+                    <span class="block h-0.5 w-5 bg-base-content"></span>
+                </div>
+            </label>
 
-            <!-- Dropdown menu: centered under button -->
-            <ul tabindex="0"
-                class="menu menu-sm dropdown-content mt-3 w-56 p-2 rounded-box shadow-lg
-                    bg-base-200 text-base-content ring-1 ring-base-300/60
-                    left-1/2 -translate-x-1/2 z-50
-                    transition duration-200 origin-top scale-95 opacity-0
-                    dropdown-open:scale-100 dropdown-open:opacity-100">
-                <li>
-                    <a class="hover:underline hover:bg-base-300/30">Home</a>
-                </li>
-                <li>
-                    <a class="hover:underline hover:bg-base-300/30">Solutions</a>
-                </li>
-                <li>
-                    <a class="hover:underline hover:bg-base-300/30">Price</a>
-                </li>
-                <li>
-                    <a class="hover:underline hover:bg-base-300/30">Contact</a>
-                </li>
+            <!-- Centered desktop menu -->
+            <ul class="menu menu-horizontal hidden md:flex px-1 font-medium text-base-content/90">
+                <li><a href="#home" class="hover:underline">Home</a></li>
+                <li><a href="#solutions" class="hover:underline">Solutions</a></li>
+                <li><a href="#price" class="hover:underline">Price</a></li>
+                <li><a href="#contact" class="hover:underline">Contact</a></li>
             </ul>
         </div>
 
-        <!-- Desktop menu -->
-        <ul class="menu menu-horizontal px-1 font-medium hidden md:flex text-base-content/90">
-            <li>
-                <a class="hover:underline">Home</a>
-            </li>
-            <li>
-                <a class="hover:underline">Solutions</a>
-            </li>
-            <li>
-                <a class="hover:underline">Price</a>
-            </li>
-            <li>
-                <a class="hover:underline">Contact</a>
-            </li>
-        </ul>
+        <!-- Right: profile -->
+        <div class="navbar-end flex-1 justify-end">
+            <button class="btn btn-ghost btn-circle">
+                <i class="fa-solid fa-user text-lg text-base-content/90 hover:text-primary transition-colors duration-200"></i>
+            </button>
+        </div>
     </div>
+</header>
 
-    <!-- Right: avatar -->
-    <div class="navbar-end flex-1 justify-end">
-        <button class="btn btn-ghost btn-circle transition-transform duration-200 hover:scale-105 active:scale-95">
-            <i class="fa-solid fa-user text-lg text-base-content/90 hover:text-primary transition-colors duration-200"></i>
-        </button>
+<!-- MOBILE DRAWER (full screen, goes ABOVE hero) -->
+<div class="drawer drawer-end md:hidden z-[1000]">
+    <input id="main-drawer" type="checkbox" class="drawer-toggle" />
+    <div class="drawer-side">
+        <!-- Backdrop -->
+        <label for="main-drawer" class="drawer-overlay"></label>
+
+        <!-- Panel slides from top ("sheet" design) -->
+        <div class="menu bg-base-200 text-base-content w-full max-w-sm rounded-b-box shadow-lg
+                                animate-[slideDown_200ms_ease-out]">
+            <div class="px-4 py-3 font-semibold">Menu</div>
+            <ul class="px-2 pb-4 space-y-1">
+                <li class="transition-all duration-200"><a href="#home" class="hover:bg-base-300/30">Home</a></li>
+                <li class="transition-all duration-300"><a href="#solutions" class="hover:bg-base-300/30">Solutions</a></li>
+                <li class="transition-all duration-500"><a href="#price" class="hover:bg-base-300/30">Price</a></li>
+                <li class="transition-all duration-700"><a href="#contact" class="hover:bg-base-300/30">Contact</a></li>
+            </ul>
+        </div>
     </div>
 </div>
+
+<!-- Adds some space below the fixed navbar -->
+<div class="pt-16"></div>
