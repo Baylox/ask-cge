@@ -3,8 +3,9 @@
 namespace App\Story;
 
 use Zenstruck\Foundry\Story;
-use App\Factory\RoleFactory;
+
 use App\Factory\AccountFactory;
+
 
 final class UserStory extends Story
 {
@@ -20,7 +21,9 @@ final class UserStory extends Story
             'email' => 'admin@example.com',
             'role'  => 'ROLE_ADMIN',
             'password' => 'adminpassword',
-            'isVerified' => true
+            'isVerified' => true,
+            'name'      => 'Admin',
+            'lastname'  => 'User',
         ]);
 
         // 1 super admin account
@@ -28,7 +31,9 @@ final class UserStory extends Story
             'email' => 'superadmin@example.com',
             'role'  => 'ROLE_SUPER_ADMIN',
             'password' => 'superadminpassword',
-            'isVerified' => true
+            'isVerified' => true,
+            'name'      => 'Super',
+            'lastname'  => 'Admin',
         ]);
     }
 }
