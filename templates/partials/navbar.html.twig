@@ -1,39 +1,71 @@
-<div class="navbar bg-white/20 shadow-md px-6">
-    <!-- Left: Logo + Burger mobile -->
-    <div class="navbar-start">
-        <div class="dropdown md:hidden">
-            <button tabindex="0" class="btn btn-ghost btn-circle">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                </svg>
-            </button>
-            <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow-lg bg-base-100 rounded-box w-52">
-                <li><a href="#" class="hover:underline hover:text-inherit">Home</a></li>
-                <li><a href="#" class="hover:underline hover:text-inherit">Solutions</a></li>
-                <li><a href="#" class="hover:underline hover:text-inherit">Price</a></li>
-                <li><a href="#" class="hover:underline hover:text-inherit">Contact</a></li>
-            </ul>
-        </div>
-
+<div class="navbar bg-base-100/20 backdrop-blur shadow-md px-4 md:px-6">
+    <!-- Left: logo -->
+    <div class="navbar-start flex-1">
         <a href="{{ path('app_home') }}" class="flex items-center gap-2">
-            <img src="{{ asset('assets/images/logo/logo-taskio.svg') }}" alt="Logo Taskio" class="h-7 w-auto">
+            <img src="{{ asset('assets/images/logo/logo-taskio.svg') }}" alt="Taskio" class="h-7 w-auto">
         </a>
     </div>
 
-    <!-- Center: Menu desktop -->
-    <div class="navbar-center hidden md:flex">
-        <ul class="menu menu-horizontal px-1 text-white-800 font-medium">
-            <li><a href="#" class="hover:underline hover:text-inherit">Home</a></li>
-            <li><a href="#" class="hover:underline hover:text-inherit">Solutions</a></li>
-            <li><a href="#" class="hover:underline hover:text-inherit">Price</a></li>
-            <li><a href="#" class="hover:underline hover:text-inherit">Contact</a></li>
+    <!-- Center: mobile burger + desktop menu -->
+    <div class="navbar-center">
+        <!-- Centered mobile burger -->
+        <div class="dropdown md:hidden">
+            <button
+                tabindex="0"
+                class="btn btn-ghost btn-circle group transition duration-200 hover:scale-105 active:scale-95">
+                <!-- Burger icon -->
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6 transition-transform duration-200 group-hover:rotate-6"
+                    fill="none"
+                    viewbox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+
+            <!-- Dropdown menu: centered under button -->
+            <ul tabindex="0"
+                class="menu menu-sm dropdown-content mt-3 w-56 p-2 rounded-box shadow-lg
+                    bg-base-200 text-base-content ring-1 ring-base-300/60
+                    left-1/2 -translate-x-1/2 z-50
+                    transition duration-200 origin-top scale-95 opacity-0
+                    dropdown-open:scale-100 dropdown-open:opacity-100">
+                <li>
+                    <a class="hover:underline hover:bg-base-300/30">Home</a>
+                </li>
+                <li>
+                    <a class="hover:underline hover:bg-base-300/30">Solutions</a>
+                </li>
+                <li>
+                    <a class="hover:underline hover:bg-base-300/30">Price</a>
+                </li>
+                <li>
+                    <a class="hover:underline hover:bg-base-300/30">Contact</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Desktop menu -->
+        <ul class="menu menu-horizontal px-1 font-medium hidden md:flex text-base-content/90">
+            <li>
+                <a class="hover:underline">Home</a>
+            </li>
+            <li>
+                <a class="hover:underline">Solutions</a>
+            </li>
+            <li>
+                <a class="hover:underline">Price</a>
+            </li>
+            <li>
+                <a class="hover:underline">Contact</a>
+            </li>
         </ul>
     </div>
 
-    <!-- Right: Icône utilisateur -->
-    <div class="navbar-end">
-        <button class="btn btn-ghost btn-circle">
-            <i class="fa-solid fa-user text-lg text-white-700 hover:text-primary"></i>
+    <!-- Right: avatar -->
+    <div class="navbar-end flex-1 justify-end">
+        <button class="btn btn-ghost btn-circle transition-transform duration-200 hover:scale-105 active:scale-95">
+            <i class="fa-solid fa-user text-lg text-base-content/90 hover:text-primary transition-colors duration-200"></i>
         </button>
     </div>
 </div>
