@@ -3,7 +3,7 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-/* Animations personnalisées */
+/* Custom animations */
 @keyframes slideDown {
     from {
         opacity: 0;
@@ -15,12 +15,8 @@
     }
 }
 
-/* Styles personnalisés */
+/* Custom styles */
 .animate-slideDown {
     animation: slideDown 200ms ease-out;
 }
 
-/* Personnalisation DaisyUI si nécessaire */
-[data-theme="corporate"] {
-    --primary: #5B7FFF;
-}
