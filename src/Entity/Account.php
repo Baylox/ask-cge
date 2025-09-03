@@ -44,6 +44,9 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Board::class, inversedBy: 'accounts')]
     private Collection $boards;
 
+    #[ORM\Column]
+    private bool $isVerified = false;
+
     public function __construct()
     {
         $this->boards = new ArrayCollection();
@@ -133,6 +136,18 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
         if ($this->boards->removeElement($board)) {
         $board->removeAccount($this);
     }
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }
