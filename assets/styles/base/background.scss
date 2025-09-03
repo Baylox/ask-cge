@@ -3,8 +3,8 @@
 body {
   min-height: 100vh;
   background: linear-gradient(
-    to bottom right,       /* direction du dégradé */
-    variables.$color-primary,               /* violet clair */
-    variables.$color-secondary               /* violet foncé */
+    to bottom right,       /* gradient direction */
+    variables.$color-primary,               /* light purple */
+    variables.$color-secondary              /* dark purple */
   );
 }
