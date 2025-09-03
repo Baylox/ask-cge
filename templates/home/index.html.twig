@@ -6,94 +6,17 @@
 
 {% block body %}
 
-	{{ component('Hero', {
+{{ component('Hero', {
   title: 'Capture, organize, and tackle your to-dos wherever you are.',
   subtitle: 'Forget clunky and cheap. Unleash your productivity with Taskio!',
   ctaHref: '/signup',
   ctaLabel: "Sign me up — it's free!"
 }, { class: 'mb-12 rounded-2xl overflow-hidden bg-gradient-to-br from-purple-800 to-indigo-900 text-white' }) }}
 
-
-{# Section séparée et centrée #}
-<section class="py-16 text-white text-center px-6">
-  <div class="max-w-4xl mx-auto space-y-12">
-
-    {# Texte à gauche #}
-    <div>
-      <h2 class="text-3xl md:text-4xl font-bold mb-4">✨ Organize, Collaborate, Move Forward</h2>
-      <p class="text-lg mb-6">Your ideas deserve more than just a board.</p>
-      <p class="text-base mb-8">
-        With Taskio, every project becomes a visual, fluid, and collaborative experience.
-        <br>Drag, structure, assign, schedule – everything is designed to help your team move forward effortlessly.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="py-20 text-white px-6">
-  <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-start">
-	<div>
-      <h3 class="text-2xl font-semibold mb-2">✨ Clear structure from the very first click</h3>
-      <p class="text-base opacity-90">
-        Create Boards – each one has your custom rules, labels, and flow.
-        <br>Ready. Set. Control – no need to start from scratch. Every action is tracked.
-        <br>You only build what you need. No extra steps.
-      </p>
-    </div>
-
-    <div>
-      <h3 class="text-2xl font-semibold mb-2">✨ Drag. Drop. Breathe.</h3>
-      <p class="text-base opacity-90">
-        Building ideas and cards with a simple gesture. Taskio’s interface is smooth, intuitive, and fast.
-        <br>No more hunting for cards – just pure motion.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="py-16 text-white px-6">
-  <div class="max-w-4xl mx-auto text-center space-y-6">
-    
-    {# Titre et sous-titre #}
-    <div>
-      <div class="inline-flex items-center justify-center gap-2 mb-2">
-        <i class="fas fa-box text-2xl"></i>
-        <h2 class="text-3xl font-bold">Cards that think like you do</h2>
-      </div>
-      <p class="text-base opacity-90">
-        Every task lives inside a card. Start with the basics: title, description, custom labels. Then go deeper:
-      </p>
-    </div>
-
-    {# Icônes de fonctionnalités #}
-    <div class="grid grid-cols-2 sm:grid-cols-5 gap-6">
-      <div class="flex flex-col items-center">
-        <i class="fas fa-calendar-alt text-xl mb-2"></i>
-        <span class="text-sm">Set deadlines</span>
-      </div>
-      <div class="flex flex-col items-center">
-        <i class="fas fa-check-square text-xl mb-2"></i>
-        <span class="text-sm">Add checklists</span>
-      </div>
-      <div class="flex flex-col items-center">
-        <i class="fas fa-paperclip text-xl mb-2"></i>
-        <span class="text-sm">Attach files</span>
-      </div>
-      <div class="flex flex-col items-center">
-        <i class="fas fa-comment-alt text-xl mb-2"></i>
-        <span class="text-sm">Leave comments</span>
-      </div>
-      <div class="flex flex-col items-center">
-        <i class="fas fa-user-friends text-xl mb-2"></i>
-        <span class="text-sm">Assign teammates</span>
-      </div>
-    </div>
-    
-  </div>
-</section>
+{% include 'home/_features.html.twig' %}
 
 
 	{# CTA Section #}
-	{% include 'home/_cta.html.twig' %}
+{% include 'home/_cta.html.twig' %}
 
 {% endblock %}

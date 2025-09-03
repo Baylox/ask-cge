@@ -14,7 +14,9 @@ const app = Application.start();
 registerControllers(app, import.meta.glob('./controllers/**/*_controller.js'));
 
 
-// Additional JavaScript files 
-import './controllers/theme.js';
+// Additional JavaScript files
+
 
 import.meta.glob(['./images/**']);
+
+console.log('App loaded with Vite + Tailwind + DaisyUI');
