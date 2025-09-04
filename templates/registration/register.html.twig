@@ -1,23 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Register
+{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
+	{% for flash_error in app.flashes('verify_email_error') %}
+		<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+	{% endfor %}
 
-    <h1>Register</h1>
+	<h1>Register</h1>
 
-    {{ form_errors(registrationForm) }}
+	{{ form_start(registrationForm) }}
+	{{ form_row(registrationForm.name) }}
+	{{ form_row(registrationForm.lastname) }}
+	{{ form_row(registrationForm.email) }}
+    {{ form_row(registrationForm.plainPassword.first) }}
+    {{ form_row(registrationForm.plainPassword.second) }}
+	{{ form_row(registrationForm.agreeTerms) }}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+	<button class="btn btn-primary w-full">Register</button>
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+	{# Rend les champs restants (ex. _token) en caché #}
+	{{ form_rest(registrationForm) }}
+	{{ form_end(registrationForm) }}
+
 {% endblock %}
