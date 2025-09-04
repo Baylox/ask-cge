@@ -4,24 +4,28 @@
 {% endblock %}
 
 {% block body %}
-	{% for flash_error in app.flashes('verify_email_error') %}
-		<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-	{% endfor %}
+    <div class="min-h-screen flex items-center justify-center bg-base-200">
+        <div class="w-full max-w-md bg-base-100 shadow-xl rounded-xl p-8">
 
-	<h1>Register</h1>
+            <div class="text-center mb-8">
+                <h1 class="text-2xl font-bold text-base-content">Create an account</h1>
+                <p class="text-base-content/70 mt-2">Join Taskio and simplify your organization</p>
+            </div>
 
-	{{ form_start(registrationForm) }}
-	{{ form_row(registrationForm.name) }}
-	{{ form_row(registrationForm.lastname) }}
-	{{ form_row(registrationForm.email) }}
-    {{ form_row(registrationForm.plainPassword.first) }}
-    {{ form_row(registrationForm.plainPassword.second) }}
-	{{ form_row(registrationForm.agreeTerms) }}
+            {{ form_start(registrationForm) }}
 
-	<button class="btn btn-primary w-full">Register</button>
-
-	{# Rend les champs restants (ex. _token) en caché #}
-	{{ form_rest(registrationForm) }}
-	{{ form_end(registrationForm) }}
-
+            {{ form_row(registrationForm.name) }}
+            {{ form_row(registrationForm.lastname) }}
+            {{ form_row(registrationForm.email) }}
+            {{ form_row(registrationForm.plainPassword.first) }}
+            {{ form_row(registrationForm.plainPassword.second) }}
+            {{ form_row(registrationForm.agreeTerms) }}
+            {{ form_rest(registrationForm) }}
+            <div class="mt-6">
+                <button class="btn btn-primary w-full">Sign up</button>
+            </div>
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
 {% endblock %}
+
