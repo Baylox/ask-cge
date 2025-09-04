@@ -23,9 +23,9 @@
             <!-- Centered desktop menu -->
             <ul class="menu menu-horizontal hidden md:flex px-1 font-medium text-base-content/90">
                 <li><a href="{{ path('app_home') }}" class="hover:underline">Home</a></li>
-                <li><a href="#" class="hover:underline">Solutions</a></li>
-                <li><a href="#" class="hover:underline">Price</a></li>
-                <li><a href="#" class="hover:underline">Contact</a></li>
+                <li><a href="{{ path('app_solutions') }}" class="hover:underline">Solutions</a></li>
+                <li><a href= "{{ path('app_price') }}" class="hover:underline">Price</a></li>
+                <li><a href="{{ path('app_contact') }}" class="hover:underline">Contact</a></li>
                 <li><a href="{{ path('app_login') }}" class="hover:underline">Connexion</a></li>
             </ul>
         </div>
