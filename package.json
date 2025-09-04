@@ -4,6 +4,7 @@
     "@hotwired/turbo": "^7.1.1 || ^8.0",
     "@symfony/stimulus-bridge": "^3.2.0 || ^4.0.0",
     "@symfony/ux-turbo": "file:vendor/symfony/ux-turbo/assets",
+    "@tailwindcss/forms": "^0.5.10",
     "autoprefixer": "10.4.20",
     "daisyui": "4.12.10",
     "postcss": "8.4.47",
