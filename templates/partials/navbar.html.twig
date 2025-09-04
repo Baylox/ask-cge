@@ -22,11 +22,11 @@
 
             <!-- Centered desktop menu -->
             <ul class="menu menu-horizontal hidden md:flex px-1 font-medium text-base-content/90">
-                <li><a href="#home" class="hover:underline">Home</a></li>
-                <li><a href="#solutions" class="hover:underline">Solutions</a></li>
-                <li><a href="#price" class="hover:underline">Price</a></li>
-                <li><a href="#contact" class="hover:underline">Contact</a></li>
-                <li><a href="#connexion" class="hover:underline">Connexion</a></li>
+                <li><a href="{{ path('app_home') }}" class="hover:underline">Home</a></li>
+                <li><a href="#" class="hover:underline">Solutions</a></li>
+                <li><a href="#" class="hover:underline">Price</a></li>
+                <li><a href="#" class="hover:underline">Contact</a></li>
+                <li><a href="{{ path('app_login') }}" class="hover:underline">Connexion</a></li>
             </ul>
         </div>
 
@@ -53,11 +53,11 @@
                                 animate-[slideDown_200ms_ease-out]">
             <div class="px-4 py-3 font-semibold">Menu</div>
             <ul class="px-2 pb-4 space-y-1">
-                <li class="transition-all duration-200"><a href="#home" class="hover:bg-base-300/30">Home</a></li>
-                <li class="transition-all duration-300"><a href="#solutions" class="hover:bg-base-300/30">Solutions</a></li>
-                <li class="transition-all duration-500"><a href="#price" class="hover:bg-base-300/30">Price</a></li>
-                <li class="transition-all duration-700"><a href="#contact" class="hover:bg-base-300/30">Contact</a></li>
-                <li class="transition-all duration-700"><a href="#connexion" class="hover:bg-base-300/30">Connexion</a></li>
+                <li class="transition-all duration-200"><a href="{{ path('app_home') }}" class="hover:bg-base-300/30">Home</a></li>
+                <li class="transition-all duration-300"><a href="#" class="hover:bg-base-300/30">Solutions</a></li>
+                <li class="transition-all duration-500"><a href="#" class="hover:bg-base-300/30">Price</a></li>
+                <li class="transition-all duration-700"><a href="#" class="hover:bg-base-300/30">Contact</a></li>
+                <li class="transition-all duration-700"><a href="{{ path('app_login') }}" class="hover:bg-base-300/30">Connexion</a></li>
             </ul>
         </div>
     </div>
